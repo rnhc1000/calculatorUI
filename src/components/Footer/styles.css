@@ -1,0 +1,8 @@
+.feet {           
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: var(--calc-color-bg-primary);
+    text-align: center;
+}

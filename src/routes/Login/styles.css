@@ -1,0 +1,13 @@
+#login-section {
+    padding: 20px 0;
+  }
+  
+  .calc-login-form-container {
+    width: 100%;
+    max-width: 24rem;
+    margin: 3rem auto;
+  }
+  
+  .calc-login-form-buttons {
+    width: 100%;
+  }
