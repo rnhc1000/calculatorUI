@@ -1,8 +1,16 @@
-.feet {           
+.footer-container {
     position: fixed;
-    left: 0;
-    bottom: 0;
+    bottom: 0px;
     width: 100%;
-    color: var(--calc-color-bg-primary);
-    text-align: center;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--primary);
+    margin: 0.5rem auto;
+  }
+
+  h5 {  
+    color: var(--white);
+    font-weight: 100;
+    font-size: 1.25rem;
+  }

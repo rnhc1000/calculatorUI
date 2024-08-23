@@ -1,7 +1,6 @@
 import './styles.css';
 
-import logo  from '../../assets/svg/undraw_push_notifications_re_t84m.svg'
-import homeLogo from '../../assets/svg/home.svg';
+import logo  from '../../assets/svg/undraw_online_organizer_re_156n.svg'
 
 import { Link } from 'react-router-dom';
 
@@ -17,9 +16,12 @@ export default function Header() {
                 <ul className="nav-list">
                     
                     <li>
-                        <Link to='/login'><img data-toggle="tooltip" data-placement="top" data-animation="" title="Login" src={homeLogo} alt="Logo" /></Link>
+                        <Link to='/home'>Home</Link>
                     </li>
-
+                    
+                    <li>
+                        <Link to='/operations'>Logout</Link>
+                    </li>
                 </ul>
             </nav>
         </header>

@@ -7,6 +7,7 @@ import FormInput from '../../components/FormInput';
 import * as forms from '../../utils/forms';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import DatePipe from '../../components/DatePipe';
 
 import JackInTheBox from 'react-awesome-reveal';
 
@@ -56,7 +57,7 @@ export default function Login() {
                 authService.saveAccessToken(response.data.access_token);
 
                 setContextTokenPayload(authService.getAccessTokenPayload());
-                navigate("/cart");
+                navigate("/wallet");
             })
             .catch(() => {
                 setSubmitResponseFail(true);
@@ -76,15 +77,14 @@ export default function Login() {
     return (
 
         <><Header />
+            <br />
+            <DatePipe />
             <JackInTheBox>
                 <section id="login-section" className="calc-container">
                     <div className="calc-login-form-container">
 
-                        <form className="calc-card calc-form" onSubmit={handleSubmit}>
+                        <form className="calc-form" onSubmit={handleSubmit}>
 
-                            <div className="nav-brand">
-                                <img width="50" height="50" data-toggle="tooltip" data-placement="top" data-animation="" title="Home" src={"https://img.icons8.com/2266EE/math.png"} alt="calculator logo;" />
-                            </div>
                             <div className="calc-form-control-container">
                                 <div>
                                     <FormInput
@@ -108,15 +108,16 @@ export default function Login() {
                                     Username or password invalid! Try again!!!
                                 </div>}
 
-                            <div className="calc-login-form-buttons calc-mt20">
-                                <button type="submit" className="calc-btn calc-btn-blue">Autenticate</button>
+                            <div>
+                                <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
+                                    Authenticate
+                                </button>
                             </div>
-
                         </form>
 
                     </div>
                 </section>
             </JackInTheBox>
-        <Footer /></>
+            <Footer /></>
     );
 }

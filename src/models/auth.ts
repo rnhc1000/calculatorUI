@@ -5,7 +5,7 @@ export type CredentialsDTO = {
 
 }
 
-export type RoleEnum = "ROLE_CLIENT";
+export type RoleEnum = "ROLE_USER";
 
 export type AccessTokenPayloadDTO = {
 

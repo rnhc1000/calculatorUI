@@ -16,22 +16,17 @@ export function requestBackEnd(config: AxiosRequestConfig) {
     return axios({ ...config, baseURL: BASE_URL, headers })
 }
 
-// REQUEST INTERCEPTOR
 axios.interceptors.request.use(
     function (config) {
-        // DO SOMETHING BEFORE REQUEST IS SENT
         return config;
     },
     function (error) {
-        // DO SOMETHING WITH REQUEST ERROR
         return Promise.reject(error);
     }
 );
 
-// RESPONSE INTERCEPTOR
 axios.interceptors.response.use(
     function (response) {
-        // DO SOMETHING WITH RESPONSE DATA IF STATUS IS 2xx
         return response;
     },
     function (error) {
@@ -40,10 +35,9 @@ axios.interceptors.response.use(
         }
 
         if (error.response.status === 403) {
-            history.push("/catalog")
+            history.push("/login")
         }
 
-        // DO SOMETHING WITH RESPONSE ERROR
         return Promise.reject(error);
     }
 );

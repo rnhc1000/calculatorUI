@@ -1,30 +1,30 @@
-import { OrderDTO, OrderItemDTO } from "../models/order";
-import { CART_KEY } from '../utils/system';
+import { WalletDTO, WalletOperationsDTO } from "../models/wallet";
+import { WALLET_KEY } from '../utils/system';
 
-export function save(cart: OrderDTO) {
+export function save(wallet: WalletDTO) {
 
-    const saveCart: string  = JSON.stringify(cart);
-    localStorage.setItem(CART_KEY, saveCart)
+    const saveWallet: string  = JSON.stringify(wallet);
+    localStorage.setItem(WALLET_KEY, saveWallet)
 
 }
 
-export function get() : OrderDTO {
+export function get() : WalletDTO {
 
-    const cartEmpty: string = '{"items":[]}';
-    const cartFull: string = localStorage.getItem(CART_KEY) ?? cartEmpty;
-    const obj = JSON.parse(cartFull) as OrderDTO;
-    const cart  = new OrderDTO();
-    obj.items.forEach(x => {
-        cart.items.push(new OrderItemDTO(x.productId, x.quantity, x.name, x.price, x.imgUrl));
+    const walletEmpty: string = '{"items":[]}';
+    const walletBalance: string = localStorage.getItem(WALLET_KEY) ?? walletEmpty;
+    const obj = JSON.parse(walletBalance) as WalletDTO;
+    const wallet  = new WalletDTO();
+    obj.operations.forEach(operation => {
+        wallet.operations.push(new WalletOperationsDTO(operation.operationId, operation.cost));
     })
-    return cart;
+    return wallet;
 
 }
 
 
 export function clear() {
 
-    const cartEmpty: string = '{"items":[]}';
-    localStorage.setItem(CART_KEY, cartEmpty );
+    const walletEmpty: string = '{"items":[]}';
+    localStorage.setItem(WALLET_KEY, walletEmpty );
 
 }

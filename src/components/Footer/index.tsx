@@ -7,8 +7,8 @@ export default function Footer() {
 
         <footer> 
 
-                <div className="feet">
-                    <h4>ricardo&#64;ferreiras.dev.br&copy; - 2024 - All rights reserved</h4>
+                <div className="footer-container">
+                    <h5>ricardo&#64;ferreiras.dev.br&copy; - 2024 - All rights reserved</h5>
                 </div>
 
         </footer>

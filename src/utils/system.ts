@@ -1,4 +1,4 @@
-export const CART_KEY = "br.dev.ferreiras.calculator/Cart";
+export const WALLET_KEY = "br.dev.ferreiras.calculator/Wallet";
 export const TOKEN_KEY = "br.dev.ferreiras.calculator/Token";
 
 export const BASE_URL = import.meta.env.VITE_BACKEND_URL ?? "http://127.0.0.1:8095";

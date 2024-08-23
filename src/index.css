@@ -1,8 +1,13 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Raleway:wght@200;300;500&family=Ysabeau:ital,wght@1,200;1,300;1,500&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Raleway:wght@200;300;500&family=Ysabeau:ital,wght@1,200;1,300;1,500&display=swap');
 
 
 :root {
+    --primary: #F9A826;
+    --primary-010: #D69121;
+
+    --grey: #9b9ba0;
+
+    --white: #f8f8f8;
     --calc-color-bg-primary: #e8e8e8;
     --calc-color-bg-secondary: #00b7ff;
     --calc-color-bg-tertiary: #636363;
@@ -25,17 +30,33 @@
 
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Open Sans", sans-serif;
-
 }
 
-html,
-body {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
-    background-color: var(--calc-color-bg-primary);
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+body {
+    min-height: 100dvh;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image: linear-gradient(.25turn, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.95)), url('assets/webp/todo.webp');
+    background-size: cover;
 }
 
 main {
@@ -44,22 +65,42 @@ main {
 
 
 h1 {
-  font-size: 1.75rem;
+    font-size: 2.75rem;
+    font-weight: 300;
+    line-height: 100%;
+    margin: 0.5rem auto;
+    color: var(--primary);
+    text-wrap: balance;
 }
 
 h2 {
-  font-size: 1.5rem;
+    font-size: 2.25rem;
+    font-weight: 300;
+    line-height: 100%;
+    margin: 0.5rem auto;
+    text-decoration: none;
+    color: var(--white);
+    text-wrap: pretty;
+    text-align: center;
 }
 
 h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
+    font-size: 2.0rem;
+    font-weight: 400;
+    line-height: 100%;
+    margin: 0;
+    text-decoration: none;
+    color: var(--white);
+    text-wrap: balance;
 }
 
-h4 {
-  font-size: 1rem;
-  font-weight: 300;
-  color: var(--calc-color-font-primary);
+h5 {
+    font-size: 1.5 rem;
+    font-weight: 200;
+    line-height: 100%;
+    margin: 0;
+    text-wrap: balance;
+    text-align: center;
 }
 
 .calc-header-admin {
@@ -67,22 +108,7 @@ h4 {
     color: var(--calc-color-font-tertiary);
 }
 
-nav {
-    /* border: 1px solid red; */
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav a {
-    font-size: 14px;
-    font-weight: 700;
-}
-
-nav h1 {
-    font-size: 16px;
-}
 
 a,
 a:hover {
@@ -169,7 +195,7 @@ a:hover {
         width: 220px;
     }
 }
-
+/* 
 .calc-btn {
     border-radius: 4px;
     height: 42px;
@@ -178,11 +204,39 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--calc-color-btn-primary);
+    background-color: var(--primary);
     color: #FFF;
     width: 100%;
+    border: none; 
 
 }
+*/
+.calc-btn {
+    width: 100%;
+    height: 42px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+.calc-btn-primary {
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    font-weight: 200;
+    color: var(--primary);
+  }
+  
+  .calc-login-text {
+    font-size: 1.75rem;
+    color: var(--white);
+    text-align: center;
+    display: block;
+  }
 
 .calc-btn-blue {
     background-color: var(--calc-color-btn-primary);
@@ -217,16 +271,15 @@ a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
-}
-
+    }
+/* 
 .calc-form h2 {
     color: var(--calc-color-font-primary);
     text-transform: uppercase;
     font-weight: 400;
     font-size: 16px;
     text-align: center;
-}
+} */
 
 .calc-form input::placeholder {
     color: var(--calc-color-font-placeholder);
@@ -241,20 +294,22 @@ a:hover {
 
 .calc-form-control {
     width: 100%;
-    height: 3rem;
-    font-size: 16px;
-    padding: 1rem;
+    height: 3.125rem;
+    font-size: 1.5rem;
+    font-weight: 100;
+    margin: 0.5rem;
+    padding: 0 1.5rem;
+    color: var(--primary);
     border-radius: 4px;
     border: 1px solid var(--calc-color-card-border);
-    margin: 1rem auto;
-    align-content: center;
+    background: none;
 }
 
 .calc-form-control[data-invalid="true"][data-dirty="true"] {
     border: 1px solid var(--calc-color-error);
 }
 
-.calc-form-control[data-invalid="true"][data-invalid="true"] ~ div {
+.calc-form-control[data-invalid="true"][data-invalid="true"]~div {
     display: unset;
 }
 
@@ -274,13 +329,14 @@ a:hover {
 }
 
 .calc-form-global-error {
-    border: 1px solid var(--calc-color-error);
+    border: none;
     width: 100%;
-    display:flex;
+    display: flex;
     justify-content: center;
     padding: 5px 10px;
-    font-size: 12px;
+    font-size: 1rem;
     border-radius: 5px;
+    color: var(--calc-color-error);
 }
 
 .calc-text-area {
@@ -291,9 +347,11 @@ a:hover {
 
 
 .calc-form-select-container {
-    padding: unset; 
+    padding: unset;
     height: unset;
 }
+
+
 
 .calc-login-form-button {
     width: 100%;
@@ -304,6 +362,32 @@ a:hover {
         font-size: 24px;
     }
 }
+
+/* Simple CSS3 Fade-in Animation */
+
+.underlineHover:after {
+    display: block;
+    left: 0;
+    bottom: -10px;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    content: "";
+    transition: width 0.2s;
+    
+  }
+  
+  .underlineHover:hover {
+    color: var(--primary);
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .underlineHover:hover:after{
+    text-align: center;
+    width: 100%;
+  }
+
 /* 
 .calc-select:invalid {
     color: var(--calc-color-font-placeholder);
@@ -319,7 +403,6 @@ a:hover {
 } */
 
 .calc-table {
-
     width: 100%;
     border-spacing: 0;
     border-collapse: collapse;
@@ -346,7 +429,6 @@ a:hover {
 }
 
 .calc-text-left {
-
     text-align: left;
 }
 
