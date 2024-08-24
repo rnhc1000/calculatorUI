@@ -7,7 +7,7 @@ function showDate() {
 }
 
 export default function DatePipe() {
-  const [currentDate, setCurrentDate] = useState(showDate());
+  const [currentDate] = useState(showDate());
 
   return (
     <div className="date-pipe-text">
