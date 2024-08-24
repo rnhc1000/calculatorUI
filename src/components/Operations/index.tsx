@@ -1,5 +1,5 @@
 import './styles.css';
-import { useContext, useState } from 'react';
+import { SetStateAction, useContext, useState } from 'react';
 import * as authService from '../../services/auth-services';
 import { useNavigate } from 'react-router-dom';
 import { ContextToken } from '../../utils/context-token';
@@ -11,7 +11,7 @@ import JackInTheBox from 'react-awesome-reveal';
 
 export default function Operations() {
     const [selectedOperation, setSelectedOperation] = useState("Select an operator");
-    const handleSelectedChange = (e) => {
+    const handleSelectedChange = (e: { target: { value: SetStateAction<string>; }; }) => {
         setSelectedOperation(e.target.value);
     }
 
