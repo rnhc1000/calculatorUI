@@ -19,9 +19,6 @@ export default function Header() {
                         <Link to='/home'>Home</Link>
                     </li>
                     
-                    <li>
-                        <Link to='/operations'>Logout</Link>
-                    </li>
                 </ul>
             </nav>
         </header>

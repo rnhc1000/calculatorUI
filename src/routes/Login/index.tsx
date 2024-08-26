@@ -20,6 +20,7 @@ export default function Login() {
             name: "username",
             type: "text",
             placeholder: "Email",
+            autoComplete: "username",
             validation: function (value: string) {
                 return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value.toLowerCase());
             },
@@ -31,6 +32,7 @@ export default function Login() {
             name: "password",
             type: "password",
             placeholder: "Password",
+            autoComplete: "current-password"
         }
     });
 
@@ -57,7 +59,7 @@ export default function Login() {
                 authService.saveAccessToken(response.data.access_token);
 
                 setContextTokenPayload(authService.getAccessTokenPayload());
-                navigate("/wallet");
+                navigate("/operations");
             })
             .catch(() => {
                 setSubmitResponseFail(true);
