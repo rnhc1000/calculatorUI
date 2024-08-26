@@ -2,17 +2,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: var(--white);
   text-align: center;
 }
 
 .container-home > h1 {
-  margin: 1rem auto;
+  margin: 3rem auto;
+  font-size: 2rem
 }
 
 .container-text {
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: var(--white);
   text-align: center;
 }

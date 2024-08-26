@@ -10,12 +10,14 @@ export function loginRequest(loginData: CredentialsDTO) {
 
     const headers = {
 
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
         Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET)
 
     }
 
-    const requestBody = QueryString.stringify({ ...loginData, grant_type: "password" });
+    
+    const requestBody = { ...loginData };
+    // console.log(requestBody);
 
     const config: AxiosRequestConfig = {
 
@@ -27,7 +29,6 @@ export function loginRequest(loginData: CredentialsDTO) {
     }
 
     return requestBackEnd(config);
-
 }
 
 export function logout() {
