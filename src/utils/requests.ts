@@ -27,6 +27,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     function (response) {
+        console.log(response);
         return response;
     },
     function (error) {

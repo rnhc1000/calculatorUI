@@ -1,6 +1,4 @@
-import QueryString from "query-string";
 import { AccessTokenPayloadDTO, CredentialsDTO, RoleEnum } from "../models/auth";
-import { CLIENT_ID, CLIENT_SECRET } from "../utils/system";
 import { AxiosRequestConfig } from "axios";
 import { requestBackEnd } from "../utils/requests";
 import * as accessTokenRepository from '../localstorage/access-token-repository';
@@ -11,13 +9,14 @@ export function loginRequest(loginData: CredentialsDTO) {
     const headers = {
 
         "Content-Type": "application/json",
-        Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET)
+        // Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET)
 
     }
 
     
     const requestBody = { ...loginData };
-    // console.log(requestBody);
+
+    console.log(requestBody);
 
     const config: AxiosRequestConfig = {
 
@@ -37,9 +36,9 @@ export function logout() {
 
 }
 
-export function saveAccessToken(token: string) {
+export function saveAccessToken(accessToken: string) {
 
-    accessTokenRepository.save(token);
+    accessTokenRepository.save(accessToken);
 
 }
 
@@ -52,12 +51,12 @@ export function getAccessToken() {
 export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
 
     try {
-
         const token = accessTokenRepository.get();
         return token == null
             ? undefined
-            : (jwtDecode(token) as AccessTokenPayloadDTO);
+            : (jwtDecode(token));
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
 
         return undefined;
@@ -86,18 +85,22 @@ export function hasAnyRoles(roles: RoleEnum[]): boolean {
     
     if (roles.length === 0) {
 
+
         return true;
 
     }
 
     const tokenPayload = getAccessTokenPayload();
+    // console.log(tokenPayload);
 
     if (tokenPayload !== undefined) {
 
         for (const element of roles) {
             if (tokenPayload.authorities.includes(element)) {
+                console.log(element);
                 return true;
             }
+            console.log("Role-> ", element);
         }
     }
 

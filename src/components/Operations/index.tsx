@@ -1,91 +1,104 @@
+import { useState } from 'react';
 import './styles.css';
-import { SetStateAction, useContext, useState } from 'react';
-import * as authService from '../../services/auth-services';
-import { useNavigate } from 'react-router-dom';
-import { ContextToken } from '../../utils/context-token';
-import FormInput from '../../components/FormInput';
 import * as forms from '../../utils/forms';
-import Form from 'react-bootstrap/Form';
+import { JackInTheBox } from 'react-awesome-reveal';
+import * as operationsService from '../../services/operation-services';
+import ResultInfo from '../ResultInfo';
 
-import JackInTheBox from 'react-awesome-reveal';
-
-export default function Operations() {
-    const [selectedOperation, setSelectedOperation] = useState("Select an operator");
-    const handleSelectedChange = (e: { target: { value: SetStateAction<string>; }; }) => {
-        setSelectedOperation(e.target.value);
-    }
-
-    const [formData, setFormData] = useState<any>({
-        operand1: {
-            value: "",
-            id: "operand1",
-            name: "operand1",
-            type: "text",
-            placeholder: "Enter an operand",
-            validation: function (value: string) {
-                return /^[0-9.]*$/.test(value);
-            },
-            message: "Please! Inform only numbers",
-        },
-        operand2: {
-            value: "",
-            id: "operand2",
-            name: "operand2",
-            type: "operand2",
-            placeholder: "Enter an operand",
-            validation: function (value: string) {
-                return /^[0-9.]*$/.test(value);
-            },
-            message: "Please! Inform only numbers",
-        },
-        operation: {
-            value: "",
-            id: "operation",
-            name: "operation",
-            type: "operation",
-            placeholder: "operation",
-        }
+export default function Operator() {
+    const [resultInfoData, setResultInfoData] = useState({
+        visible: false,
+        result: "34.53"
     });
 
-    const navigate = useNavigate();
+    const [handleInput, setHandleInput] = useState(true);
+
+    const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
+    const [formData, setFormData] = useState(initialFormData);
 
     const [submitResponseFail, setSubmitResponseFail] = useState(false);
 
-    const { setContextTokenPayload } = useContext(ContextToken);
+    const handleChange = (event: any) => {
+        const { name, value } = event.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
-    function handleSubmit(event: any) {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
-
         setSubmitResponseFail(false);
-        const formDataValidated = forms.dirtyAndValidateAll(formData);
+        formData.username = "ricardo@ferreiras.dev.br";
+        const formDataValidated: any = forms.dirtyAndValidateAll(formData);
+        console.log(formDataValidated);
         if (forms.hasAnyInvalid(formDataValidated)) {
             setFormData(formDataValidated);
             return;
         }
+        setHandleInput(true);
+        setFormData(formDataValidated);
+        const operationNumeric: string = formData.operator;
 
-        authService.loginRequest(
-            forms.toValues(formData)
-        )
-            .then(response => {
-                authService.saveAccessToken(response.data.access_token);
+        if (operationNumeric != "random_string") {
 
-                setContextTokenPayload(authService.getAccessTokenPayload());
-                navigate("/wallet");
+            operationsService.requestOperationsNumbers({ ...formData })
+
+                .then(response => {
+
+                    const check: any = response.data.result;
+
+                    if (check == "-1") {
+                        setResultInfoData({ result: "No Balance Available!", visible: true });
+                    } else {
+                        setResultInfoData({result: check, visible:true});
+                    }
+                    
+                    console.log(resultInfoData);
+
+                })
+
+                .catch(() => {
+
+                    setSubmitResponseFail(true);
+
+                })
+
+            setFormData(initialFormData);
+
+        } else {
+            formData.username = "ricardo@ferreiras.dev.br";
+            formData.operator = "random_string";
+            
+            operationsService.requestOperationsRandom({
+                ...formData,
+                id: 0,
+                operation: ''
             })
-            .catch(() => {
-                setSubmitResponseFail(true);
-            })
+
+                .then(response => {
+
+                    const check: any = response.data.random;
+
+                    if (check == "-1") {
+                        setResultInfoData({ result: "No Balance Available!", visible: true });
+                    } else {
+                        setResultInfoData({result: check, visible:true});
+                    }
+
+                })
+                .catch(() => {
+
+                    setSubmitResponseFail(true);
+
+                })
+
+            setFormData(initialFormData);
+
+        }
     }
 
-    function handleInputChange(event: any) {
-        const result = forms.updateAndValidate(formData, event.target.name, event.target.value);
-        setFormData(result);
+    function handleDialogClose() {
+        setResultInfoData({ ...resultInfoData, visible: false })
     }
 
-    function handleTurnDirty(name: string) {
-        const newFormData = forms.dirtyAndValidate(formData, name);
-        setFormData(newFormData);
-    }
 
     return (
 
@@ -94,57 +107,73 @@ export default function Operations() {
                 <div className="calc-login-form-container">
 
                     <form className="calc-form" onSubmit={handleSubmit}>
-                        {/* 
-                        <div className="nav-brand">
-                            <img width="50" height="50" data-toggle="tooltip" data-placement="top" data-animation="" title="Home" src={"https://img.icons8.com/2266EE/math.png"} alt="calculator logo;" />
-                        </div> */}
                         <div className="calc-form-control-container">
-
-                            <div></div>
-
-                            <Form.Select className="calc-form-operation" required value={selectedOperation} onChange={handleSelectedChange} >
-                                <option>Select an operator</option>
+                            <label className="label-input" htmlFor="operator">Operator</label>
+                            <select
+                                className="calc-form-operation"
+                                onChange={handleChange}
+                                value={formData.operator}
+                                required
+                                name="operator"
+                                id="operator"
+                            >
+                                <option>Pick an operator!</option>
                                 <option value="addition">Addition(+)</option>
-                                <option value="divison">Divison(/)</option>
+                                <option value="division">Division(/)</option>
                                 <option value="subtraction">Subtraction(-)</option>
-                                <option value="product">Product(x)</option>
-                                <option value="squareroot">Square Root(V)</option>
-                                <option value="randomstring">Random String(R)</option>
-                            </Form.Select>
-
-                            <div>
-                                <FormInput
-                                    {...formData.operand1}
-                                    className="calc-form-control"
-                                    onTurnDirty={handleTurnDirty}
-                                    onChange={handleInputChange} />
-                                <div className="calc-form-error">{formData.operand1.message}</div>
-                            </div>
-                            <div>
-                                <FormInput
-                                    {...formData.operand2}
-                                    className="calc-form-control"
-                                    onTurnDirty={handleTurnDirty}
-                                    onChange={handleInputChange} />
-                                <div className="calc-form-error">{formData.operand1.message}</div>
-                            </div>
-
-                            {/* <div className="calc-form-error">{formData.operation.message}</div> */}
+                                <option value="multiplication">Multiplication(x)</option>
+                                <option value="square_root">Square Root(V)</option>
+                                <option value="random_string">Random String(R)</option>
+                            </select>
+                            <label className="label-input" htmlFor="operandoOne">Operand One</label>
+                            { 
+                            <input
+                                onChange={handleChange}
+                                value={formData.operandOne}
+                                className="calc-form-operation"
+                                type="text"
+                                name="operandOne"
+                                id="operandOne"
+                                placeholder="Enter an operand..."
+                            />
+                            }
+                            <label className="label-input" htmlFor="operandTwo">Operand Two</label>
+                            {
+                                
+                                <input
+                                    onChange={handleChange}
+                                    value={formData.operandTwo}
+                                    className="calc-form-operation"
+                                    type="text"
+                                    name="operandTwo"
+                                    id="operandTwo"
+                                    placeholder="Enter an operand..."
+                                />
+                            }
                         </div>
 
-                        {submitResponseFail &&
+                        {
+                            submitResponseFail &&
                             <div className="calc-form-global-error">
                                 System not available now! Try again later!!!
-                            </div>}
+                            </div>
+                        }
 
-                        <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
+                        <button className="underlineHover calc-btn calc-login-text calc-btn-primary ">
                             Process it!
                         </button>
-
                     </form>
-
                 </div>
+                {
+                    resultInfoData.visible &&
+                    <ResultInfo
+                        result={resultInfoData.result}
+                        onDialogClose={handleDialogClose}
+                    />
+                }
+
             </section>
         </JackInTheBox>
-    );
+
+    )
 }
