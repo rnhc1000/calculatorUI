@@ -46,7 +46,9 @@ export default function Login() {
         event.preventDefault();
 
         setSubmitResponseFail(false);
+
         const formDataValidated = forms.dirtyAndValidateAll(formData);
+
         if (forms.hasAnyInvalid(formDataValidated)) {
             setFormData(formDataValidated);
             return;
@@ -56,9 +58,15 @@ export default function Login() {
             forms.toValues(formData)
         )
             .then(response => {
-                authService.saveAccessToken(response.data.accessToken);
+                const token = response.data.accessToken
+                
+                authService.saveAccessToken(token);
 
+                console.log("Token", authService.getAccessToken());
+
+                console.log("Payload",authService.getAccessTokenPayload());
                 setContextTokenPayload(authService.getAccessTokenPayload());
+                
                 navigate("/operations");
             })
             .catch(() => {

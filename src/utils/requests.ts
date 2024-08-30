@@ -7,11 +7,13 @@ export function requestBackEnd(config: AxiosRequestConfig) {
 
 
     const headers = config.withCredentials
-        ? {
+        ? 
+        {
             ...config.headers,
             Authorization: "Bearer " + authService.getAccessToken()
         }
-        : config.headers;
+        : 
+        config.headers;
 
     return axios({ ...config, baseURL: BASE_URL, headers })
 }

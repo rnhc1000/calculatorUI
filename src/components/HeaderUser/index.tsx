@@ -19,7 +19,11 @@ export default function Header() {
                     </li>
 
                     <li>
-                        <Link to='/home'>Logout</Link>
+                        <Link to = '/records'>Records</Link>
+                    </li>
+
+                    <li>
+                        <Link to = '/home'>Logout</Link>
                     </li>
 
                 </ul>

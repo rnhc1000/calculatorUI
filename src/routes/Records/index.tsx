@@ -1,12 +1,12 @@
 import Footer from '../../components/Footer';
-import Header from '../../components/Header';
+import HeaderUser from '../../components/Header';
 import DataRecords from '../../components/DataRecords';
 
 export default function Records() {
    return (
     <>
 
-    <Header />
+    <HeaderUser />
     <DataRecords />
     <Footer />
 
