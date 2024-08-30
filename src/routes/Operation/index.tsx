@@ -1,5 +1,5 @@
 import Footer from '../../components/Footer';
-import Header from '../../components/Header';
+import HeaderUser from '../../components/HeaderUser';
 import Operations from '../../components/Operations';
 
 export default function Operation() {
@@ -7,7 +7,7 @@ export default function Operation() {
     return (
         <>
 
-        <Header />
+        <HeaderUser />
         <Operations />
         <Footer />
 

@@ -8,7 +8,7 @@ export default function Footer() {
         <footer> 
 
                 <div className="footer-container">
-                    <h5>ricardo&#64;ferreiras.dev.br&copy; - 2024 - All rights reserved</h5>
+                    <p>ricardo&#64;ferreiras.dev.br&copy; - 2024 - All rights reserved</p>
                 </div>
 
         </footer>

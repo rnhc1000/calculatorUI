@@ -56,7 +56,7 @@ export default function Login() {
             forms.toValues(formData)
         )
             .then(response => {
-                authService.saveAccessToken(response.data.access_token);
+                authService.saveAccessToken(response.data.accessToken);
 
                 setContextTokenPayload(authService.getAccessTokenPayload());
                 navigate("/operations");

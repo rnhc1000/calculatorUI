@@ -2,7 +2,7 @@
 
 
 :root {
-    --primary: #F9A826;
+    --primary: #D69121;
     --primary-010: #D69121;
 
     --grey: #9b9ba0;
@@ -55,7 +55,7 @@ body {
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-image: linear-gradient(.35turn, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)), url('assets/webp/todo.webp');
+    background-image: linear-gradient(.35turn, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.95)), url('assets/img/mathOne.jpg');
     background-size: cover;
 }
 
@@ -507,22 +507,33 @@ a:hover {
     justify-content: center;
     border-radius: 5px;
     position: absolute;
+    height: 24rem;
+    width:28rem;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--calc-color-card-bg);
+    background-color: rgba(231, 219, 200, 0.9);
     padding: 20px;
 }
 
 .calc-dialog-box h2 {
-    font-size: 20px;
+    font-size: 2.5rem;
     color: var(--calc-color-font-primary);
-    margin-bottom: 20px;
+    margin: 1rem;
+    font-weight: 400;
+}
+
+.calc-dialog-box h3 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin: 1rem;
+    font-weight: 500;
+    text-align: center;
 }
 
 .calc-dialog-btn-container {
     width: 100%;
     display: grid;
     grid-template: 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 2rem;
 }

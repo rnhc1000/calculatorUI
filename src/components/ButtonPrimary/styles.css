@@ -1,0 +1,22 @@
+.calc-btn-dialog {
+    border-radius: 4px;
+    height: 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+    color: #FFF;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 1rem;
+
+}
+
+.calc-btn-blue-dialog {
+    margin-top: 5rem;
+    background-color: var(--primary);
+    color: var(--calc-color-font-tertiary);
+    border: none;
+}

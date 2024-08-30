@@ -10,10 +10,9 @@
     margin: 0.5rem auto;
   }
 
-  h5 {  
+  p {  
     color: var(--white);
-    font-weight: 100;
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   @media (max-width: 640px) {
