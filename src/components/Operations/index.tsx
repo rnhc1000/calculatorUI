@@ -3,6 +3,9 @@ import './styles.css';
 import * as forms from '../../utils/forms';
 import { JackInTheBox } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
+import * as authService from '../../services/auth-services';
+
+
 import ResultInfo from '../ResultInfo';
 
 export default function Operator() {
@@ -11,29 +14,30 @@ export default function Operator() {
         result: "34.53"
     });
 
-    const [handleInput, setHandleInput] = useState(true);
-
+    
     const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
     const [formData, setFormData] = useState(initialFormData);
 
     const [submitResponseFail, setSubmitResponseFail] = useState(false);
 
-    const handleChange = (event: any) => {
+    const handleChange = (event: { target: { name: any; value: any; }; } ) => {
         const { name, value } = event.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         setSubmitResponseFail(false);
-        formData.username = "ricardo@ferreiras.dev.br";
-        const formDataValidated: any = forms.dirtyAndValidateAll(formData);
+        formData.username = authService.getAccessTokenPayload()?.username;
+        const formDataValidated = forms.dirtyAndValidateAll(formData);
         console.log(formDataValidated);
         if (forms.hasAnyInvalid(formDataValidated)) {
             setFormData(formDataValidated);
             return;
         }
-        setHandleInput(true);
+
+        
+        // setHandleInput(true);
         setFormData(formDataValidated);
         const operationNumeric: string = formData.operator;
 
@@ -43,7 +47,7 @@ export default function Operator() {
 
                 .then(response => {
 
-                    const check: any = response.data.result;
+                    const check = response.data.result;
 
                     if (check == "-1") {
                         setResultInfoData({ result: "No Balance Available!", visible: true });
@@ -64,7 +68,7 @@ export default function Operator() {
             setFormData(initialFormData);
 
         } else {
-            formData.username = "ricardo@ferreiras.dev.br";
+            
             formData.operator = "random_string";
             
             operationsService.requestOperationsRandom({
@@ -75,7 +79,7 @@ export default function Operator() {
 
                 .then(response => {
 
-                    const check: any = response.data.random;
+                    const check = response.data.random;
 
                     if (check == "-1") {
                         setResultInfoData({ result: "No Balance Available!", visible: true });
@@ -125,7 +129,7 @@ export default function Operator() {
                                 <option value="square_root">Square Root(V)</option>
                                 <option value="random_string">Random String(R)</option>
                             </select>
-                            <label className="label-input" htmlFor="operandoOne">Operand One</label>
+                            <label className="label-input" htmlFor="operandOne">Operand One</label>
                             { 
                             <input
                                 onChange={handleChange}

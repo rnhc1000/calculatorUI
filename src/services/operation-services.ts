@@ -1,11 +1,10 @@
 import { AxiosRequestConfig } from 'axios';
 import { requestBackEnd } from '../utils/requests';
 import { RandomDto } from "../models/random";
-import { OperationsDto } from "../models/operations";
 import * as authService from '../services/auth-services';
 
 
-export function requestOperationsNumbers (formData: OperationsDto)  {
+export function requestOperationsNumbers (formData: {})  {
     const headers = {
 
         "Content-Type": "application/json",

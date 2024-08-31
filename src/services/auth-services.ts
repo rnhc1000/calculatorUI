@@ -51,10 +51,11 @@ export function getAccessToken() {
 export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
 
     try {
-        const token = accessTokenRepository.get();
-        return token == null
+        const accessToken = accessTokenRepository.get();
+        
+        return accessToken == null
             ? undefined
-            : (jwtDecode(token));
+            : (jwtDecode(accessToken));
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
