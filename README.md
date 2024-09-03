@@ -1,11 +1,14 @@
 ## Web Calculator UI - @Ricardo Ferreira
-Arithmetic Calculator REST API
-Implements a Web platform to provide a simple calculator functionality (addition, subtraction,
-multiplication, division, square root, and a random string generation) where each functionality
-will have a separate cost per request.
+Web Calculator
+
+Implements a ReactJS based app, using TypeScript, React Router, React Hooks, React Context,AG-GRID Datatable, JWT Decode and a couple of other libraries, to provide a couple of simple math functionalities (addition, subtraction, multiplication, division, square root, and a random string generation) where each functionality will have a separate cost per request.
 Users will have a starting credit/balance. Each request will be deducted from the user’s
-balance. If the user’s balance isn’t enough to cover the request cost, the request shall be
-denied. 
+balance. If the user’s balance isn’t enough to cover the request cost, the request shall be denied.
+The design is a try to move from the conventional login pages  and a couple of animations to enrich the UX.
+Each operation is persisted into a database and can be retrieved through a AG-GRID| Datatable eith support for pagination, searching and sorting!
+This app consumes services offered by a REStful API at https://api.ferreiras.dev.br/swagger-ui/index.html and does not make any math, of any sort. All maths are done in the back end and theirs results available at specific endpoints.
+The user must be authenticated and authorized accordingly to have full access to the API services.
+
 ## _Table of contents_
 - [Web Calculator UI - @Ricardo Ferreira](#web-calculator-ui---ricardo-ferreira)
 - [_Table of contents_](#table-of-contents)
@@ -47,10 +50,10 @@ These web pages were coded using ReactJS exploring hooks such as useState, useLo
 ## _Screenshot_
 [![](./calculatorUI.png)]()
 ## _Links_
-- Live Site URL: [https://webcalculator.ferreiras.dev.br] 
+- Live Site URL: [https://calculatorweb.ferreiras.dev.br] 
 ## _Built with_
 
-[![My Skills](https://skillicons.dev/icons?i=git,react,vite,yarn,typescript,html,css,javascript,vscode,redhat,aws)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=react,vite,yarn,typescript,html,css,javascript,git,github,vscode,redhat,aws)](https://skillicons.dev)
 
 
 
@@ -170,6 +173,6 @@ export function hasAnyRoles(roles: RoleEnum[]): boolean {
 - [https://yarnpkg.org/] Open-source package manager used to manage dependencies in  JavaScript.
 - [https://vitejs.dev/guide/] Build tool that aims to provide a faster and leaner development experience for modern web projects.
 ## _Author_
-- Website - [https://webcalculator.ferreiras.dev.br] 
+- Website - [https://calculatorweb.ferreiras.dev.br] 
 ## Acknowledgments
 - 
