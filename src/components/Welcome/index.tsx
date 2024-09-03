@@ -1,7 +1,6 @@
 import './styles.css';
 import { Link } from 'react-router-dom';
 import homeLogo from '../../assets/svg/undraw_online_organizer_re_156n.svg'
-import Spinner from '../Spinner/index';
 
 export default function Welcome() {
 

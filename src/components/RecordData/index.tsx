@@ -8,7 +8,6 @@ import { IRow } from '../../models/rows';
 import * as recordsService from '../../services/records-services';
 
 export function RecordData() {
-    const [loading, setLoading] = useState(true);
     const [rowData, setRowData] = useState<IRow[]>([]);
     const [OK, setOK] = useState(true);
     

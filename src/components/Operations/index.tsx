@@ -4,7 +4,6 @@ import * as forms from '../../utils/forms';
 import { JackInTheBox } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
-import { ClipLoader } from 'react-spinners';
 import ResultInfo from '../ResultInfo';
 
 export default function Operator() {
