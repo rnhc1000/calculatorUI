@@ -8,6 +8,7 @@ import { IRow } from '../../models/rows';
 import * as recordsService from '../../services/records-services';
 
 export function RecordData() {
+    const [loading, setLoading] = useState(true);
     const [rowData, setRowData] = useState<IRow[]>([]);
     const [OK, setOK] = useState(true);
     
@@ -65,6 +66,7 @@ export function RecordData() {
 
     ]);
 
+  
     if (OK) {
 
         recordsService.findRecords(0, 1000, 0, 1000)
@@ -78,10 +80,8 @@ export function RecordData() {
 
             .catch(() => {
 
-
             })
             
-
     }
 
     const defaultColDef = useMemo<ColDef>(() => {
@@ -99,6 +99,7 @@ export function RecordData() {
                 }
                 style={{ width: "100%", height: "77vh" }}
             >
+  
                 <AgGridReact
                     rowData={rowData}
                     columnDefs={colDefs}
@@ -108,6 +109,7 @@ export function RecordData() {
                         console.log(`New Cell Value: ${event.value}`)
                     }
                 />
+        
             </div>
         </div>
     );
