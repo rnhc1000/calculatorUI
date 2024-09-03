@@ -182,7 +182,15 @@ export default function Operator() {
 
                         <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
                             Process it!
-                            {loading && <ClipLoader size={50}>Processing...</ClipLoader>}
+                            {loading && (
+          <div className="spinner-loader">
+            <div className="loader"></div>
+            <div className="loader"></div>
+            <div className="loader"></div>
+            <div className="loader"></div>
+            <div className="loader"></div>
+          </div>
+        )}
                         </button>
                     </form>
                 </div>

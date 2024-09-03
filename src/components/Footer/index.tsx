@@ -9,7 +9,7 @@ export default function Footer() {
         <footer> 
 
                 <div className="footer-container">
-                    <Link to = "https://www.ferreiras.dev.br">
+                    <Link to = "https://www.ferreiras.dev.br" target="_blank">
                     <p className="sizeSmiley">Visit my portfolio &#128073;&#127998;&nbsp; https://www.ferreiras.dev.br&copy; </p>
                     <p>All rights reserved - 2024</p>
                     </Link>

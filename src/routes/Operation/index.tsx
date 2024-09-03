@@ -7,11 +7,13 @@ export default function Operation() {
     return (
         <>
 
-        <HeaderUser />
-        <Operations />
-        <Footer />
+            <HeaderUser />
+
+            <Operations />
+
+            <Footer />
 
         </>
-)
+    )
 
 }
