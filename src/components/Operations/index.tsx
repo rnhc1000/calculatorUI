@@ -4,44 +4,54 @@ import * as forms from '../../utils/forms';
 import { JackInTheBox } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
-
-
+import { ClipLoader } from 'react-spinners';
 import ResultInfo from '../ResultInfo';
 
 export default function Operator() {
     const [resultInfoData, setResultInfoData] = useState({
         visible: false,
-        result: "34.53"
+        result: "0.00"
     });
 
-    
+
+
     const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
     const [formData, setFormData] = useState(initialFormData);
 
     const [submitResponseFail, setSubmitResponseFail] = useState(false);
 
-    const handleChange = (event: { target: { name: any; value: any; }; } ) => {
+    const handleChange = (event: { target: { name: any; value: any; }; }) => {
         const { name, value } = event.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const [loading, setLoading] = useState(false);
+
     const handleSubmit = (event: { preventDefault: () => void; }) => {
+
         event.preventDefault();
+
         setSubmitResponseFail(false);
-        formData.username = authService.getAccessTokenPayload()?.username;
+
+        const userNameReturned = { ...authService.getAccessTokenPayload() };
+        formData.username = userNameReturned.username ?? "nouser@found.com";
+
         const formDataValidated = forms.dirtyAndValidateAll(formData);
+
         console.log(formDataValidated);
         if (forms.hasAnyInvalid(formDataValidated)) {
+
             setFormData(formDataValidated);
             return;
+
         }
 
-        
-        // setHandleInput(true);
         setFormData(formDataValidated);
         const operationNumeric: string = formData.operator;
 
         if (operationNumeric != "random_string") {
+
+            setLoading(true);
 
             operationsService.requestOperationsNumbers({ ...formData })
 
@@ -52,25 +62,29 @@ export default function Operator() {
                     if (check == "-1") {
                         setResultInfoData({ result: "No Balance Available!", visible: true });
                     } else {
-                        setResultInfoData({result: check, visible:true});
+                        setResultInfoData({ result: check, visible: true });
                     }
-                    
-                    console.log(resultInfoData);
+
+                    setLoading(false);
 
                 })
 
                 .catch(() => {
 
                     setSubmitResponseFail(true);
+                    setLoading(false);
+
 
                 })
 
             setFormData(initialFormData);
 
         } else {
-            
+
+            setLoading(true);
+
             formData.operator = "random_string";
-            
+
             operationsService.requestOperationsRandom({
                 ...formData,
                 id: 0,
@@ -84,13 +98,17 @@ export default function Operator() {
                     if (check == "-1") {
                         setResultInfoData({ result: "No Balance Available!", visible: true });
                     } else {
-                        setResultInfoData({result: check, visible:true});
+                        setResultInfoData({ result: check, visible: true });
                     }
+                    setLoading(false);
+
 
                 })
                 .catch(() => {
 
                     setSubmitResponseFail(true);
+                    setLoading(false);
+
 
                 })
 
@@ -102,7 +120,6 @@ export default function Operator() {
     function handleDialogClose() {
         setResultInfoData({ ...resultInfoData, visible: false })
     }
-
 
     return (
 
@@ -130,20 +147,20 @@ export default function Operator() {
                                 <option value="random_string">Random String(R)</option>
                             </select>
                             <label className="label-input" htmlFor="operandOne">Operand One</label>
-                            { 
-                            <input
-                                onChange={handleChange}
-                                value={formData.operandOne}
-                                className="calc-form-operation"
-                                type="text"
-                                name="operandOne"
-                                id="operandOne"
-                                placeholder="Enter an operand..."
-                            />
+                            {
+                                <input
+                                    onChange={handleChange}
+                                    value={formData.operandOne}
+                                    className="calc-form-operation"
+                                    type="text"
+                                    name="operandOne"
+                                    id="operandOne"
+                                    placeholder="Enter an operand..."
+                                />
                             }
                             <label className="label-input" htmlFor="operandTwo">Operand Two</label>
                             {
-                                
+
                                 <input
                                     onChange={handleChange}
                                     value={formData.operandTwo}
@@ -163,8 +180,9 @@ export default function Operator() {
                             </div>
                         }
 
-                        <button className="underlineHover calc-btn calc-login-text calc-btn-primary ">
+                        <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
                             Process it!
+                            {loading && <ClipLoader size={50}>Processing...</ClipLoader>}
                         </button>
                     </form>
                 </div>

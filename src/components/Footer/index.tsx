@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './styles.css';
 
 
@@ -8,7 +9,10 @@ export default function Footer() {
         <footer> 
 
                 <div className="footer-container">
-                    <p>ricardo&#64;ferreiras.dev.br&copy; - 2024 - All rights reserved</p>
+                    <Link to = "https://www.ferreiras.dev.br">
+                    <p className="sizeSmiley">Visit my portfolio &#128073;&#127998;&nbsp; https://www.ferreiras.dev.br&copy; </p>
+                    <p>All rights reserved - 2024</p>
+                    </Link>
                 </div>
 
         </footer>

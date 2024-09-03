@@ -1,9 +1,17 @@
+import './styles.css';
 import { useState } from 'react';
 
 function showDate() {
-  const today = new Date();
-  const time = today.toLocaleString(); 
-  return `${time}`;
+  const today = new Date().toLocaleDateString("en-us", {
+
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+
+});
+  return `${today}`;
 }
 
 export default function DatePipe() {

@@ -11,7 +11,6 @@ import { AccessTokenPayloadDTO } from "./models/auth";
 import * as authService from './services/auth-services';
 import { ContextToken } from "./utils/context-token";
 
-
 export default function App() {
 
 

@@ -20,7 +20,7 @@ export default function FormInput(props: any) {
             data-invalid={invalid}
             data-dirty={dirty}
         />
-        
+
     );
 
 }
