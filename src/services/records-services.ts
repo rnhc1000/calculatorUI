@@ -2,8 +2,6 @@ import { AxiosRequestConfig } from 'axios';
 import { requestBackEnd } from '../utils/requests';
 import * as authService from '../services/auth-services';
 
-
-
 export function findRecords(page: number, totalPages: number, totalRecords: number, size: number) {
 
     const headers = {

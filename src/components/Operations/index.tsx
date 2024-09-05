@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import './styles.css';
+import { useState } from 'react';
 import * as forms from '../../utils/forms';
 import { JackInTheBox } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
@@ -11,6 +11,12 @@ export default function Operator() {
         visible: false,
         result: "0.00"
     });
+
+    const spinners = ["loader", "loader", "loader", "loader"];
+    const spinnersList: string[] = [];
+    spinners.forEach((spinners) => {
+        return spinnersList.push(String(<div className={spinners}></div>));
+    })
 
 
 
@@ -37,7 +43,7 @@ export default function Operator() {
 
         const formDataValidated = forms.dirtyAndValidateAll(formData);
 
-        console.log(formDataValidated);
+        // console.log(formDataValidated);
         if (forms.hasAnyInvalid(formDataValidated)) {
 
             setFormData(formDataValidated);
@@ -70,6 +76,7 @@ export default function Operator() {
 
                 .catch(() => {
 
+                    setResultInfoData({ result: "Operation not allowed!!!", visible: true });
                     setSubmitResponseFail(true);
                     setLoading(false);
 
@@ -104,7 +111,7 @@ export default function Operator() {
 
                 })
                 .catch(() => {
-
+                    setResultInfoData({ result: "Operation not allowed", visible: true });
                     setSubmitResponseFail(true);
                     setLoading(false);
 
@@ -175,21 +182,23 @@ export default function Operator() {
                         {
                             submitResponseFail &&
                             <div className="calc-form-global-error">
-                                System not available now! Try again later!!!
+                                Try again!!!
                             </div>
                         }
 
                         <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
                             Process it!
                             {loading && (
-          <div className="spinner-loader">
-            <div className="loader"></div>
-            <div className="loader"></div>
-            <div className="loader"></div>
-            <div className="loader"></div>
-            <div className="loader"></div>
-          </div>
-        )}
+
+                                <div className="spinner-loader">
+                                    
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+
+                                </div>
+                            )}
                         </button>
                     </form>
                 </div>

@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "./system";
 import * as authService from '../services/auth-services';
-import { history } from './history';
 
 export function requestBackEnd(config: AxiosRequestConfig) {
 
@@ -29,18 +28,22 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
     function (response) {
-        console.log(response);
         return response;
     },
     function (error) {
-        if (error.response.status === 401) {
-            history.push("/login");
-        }
+        // if (error.response.status === 401) {
+        //     history.push("/login");
+        // }
 
-        if (error.response.status === 403) {
-            history.push("/login")
-        }
+        // if (error.response.status === 403) {
+        //     history.push("/login")
+        // }
 
+        if(error.response && error.response.data) {
+            console.log(error.response.data);
+            return Promise.reject(error.response.data);
+        }
+        console.log(error.response.data);
         return Promise.reject(error);
     }
 );

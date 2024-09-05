@@ -62,9 +62,9 @@ export default function Login() {
                 
                 authService.saveAccessToken(token);
 
-                console.log("Token", authService.getAccessToken());
+                // console.log("Token", authService.getAccessToken());
 
-                console.log("Payload",authService.getAccessTokenPayload());
+                // console.log("Payload",authService.getAccessTokenPayload());
                 setContextTokenPayload(authService.getAccessTokenPayload());
                 
                 navigate("/operations");
