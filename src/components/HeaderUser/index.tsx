@@ -1,8 +1,8 @@
 import './styles.css';
 
 import logo from '../../assets/svg/undraw_online_organizer_re_156n.svg'
-import wallet from '../../assets/svg/wallet.svg';
 import { Link, useLocation } from 'react-router-dom';
+import WalletIcon from '../WalletIcon';
 
 export default function HeaderUser() {
 
@@ -17,7 +17,8 @@ export default function HeaderUser() {
 
                 <ul className="nav-list">
                     <li>
-                        <img data-toggle="tooltip" data-placement="top" data-animation="" title="Balance" src={wallet} alt="calculator logo;" />
+                    <WalletIcon />
+                        {/* <img data-toggle="tooltip" data-placement="top" data-animation="" title="Balance" src={wallet} alt="calculator logo;" /> */}
                     </li>
 
                     {location.pathname === "/operations" &&

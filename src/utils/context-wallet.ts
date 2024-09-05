@@ -9,7 +9,7 @@ export type ContextWalletBalanceType = {
 
 export const ContextWalletBalance = createContext<ContextWalletBalanceType>({
 
-    contextWalletBalance: 0,
+    contextWalletBalance: 10,
     setContextWalletBalance: () => {}
     
 })

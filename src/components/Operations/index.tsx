@@ -4,6 +4,8 @@ import * as forms from '../../utils/forms';
 import { JackInTheBox } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
+import * as walletService from  '../../services/wallet-services';
+
 import ResultInfo from '../ResultInfo';
 
 export default function Operator() {
@@ -18,6 +20,10 @@ export default function Operator() {
         return spinnersList.push(String(<div className={spinners}></div>));
     })
 
+    const [balance, setBalance] = useState({
+        balance: 0
+    });
+
 
 
     const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
@@ -30,6 +36,13 @@ export default function Operator() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const userNameReturned = { ...authService.getAccessTokenPayload() };
+    const user = userNameReturned.username;
+    const value = {...walletService.findBalance(user, 0)};
+    console.log(user);
+    setBalance(value);
+
+    console.log(value);
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event: { preventDefault: () => void; }) => {
@@ -38,7 +51,7 @@ export default function Operator() {
 
         setSubmitResponseFail(false);
 
-        const userNameReturned = { ...authService.getAccessTokenPayload() };
+        // const userNameReturned = { ...authService.getAccessTokenPayload() };
         formData.username = userNameReturned.username ?? "nouser@found.com";
 
         const formDataValidated = forms.dirtyAndValidateAll(formData);
