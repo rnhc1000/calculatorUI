@@ -1,10 +1,10 @@
 export function update(inputs: any, name: string, newValue: any) {
 
     return { ...inputs, [name]: { ...inputs[name], value: newValue } };
-
 }
 
 export function toValues(inputs: any) {
+
     const data: any = {};
 
     for (const name in inputs) {
@@ -12,7 +12,6 @@ export function toValues(inputs: any) {
     }
 
     return data;
-
 }
 
 export function updateAll(inputs: any, newValues: any) {
@@ -24,42 +23,38 @@ export function updateAll(inputs: any, newValues: any) {
     }
 
     return newInputs;
-
 }
-
 
 export function validate(inputs: any, name: string) {
 
     if (!inputs[name].validation) {
+
         return inputs;
     }
 
     const isInvalid = !inputs[name].validation(inputs[name].value)
     return { ...inputs, [name]: { ...inputs[name], invalid: isInvalid.toString() } }
-
 }
 
 export function toDirty(inputs: any, name: string) {
 
     return { ...inputs, [name]: { ...inputs[name], dirty: "true" } }
-
 }
 
 export function updateAndValidate(inputs: any, name: string, newValue: any) {
 
     const dataUpdated = update(inputs, name, newValue);
     const dataValidated = validate(dataUpdated, name);
-    return dataValidated;
 
+    return dataValidated;
 }
 
 export function dirtyAndValidate(inputs: any, name: string) {
 
     const dataDirty = toDirty(inputs, name);
+
     return validate(dataDirty, name);
-
 }
-
 
 export function toDirtyAll(inputs: any) {
 
@@ -70,7 +65,6 @@ export function toDirtyAll(inputs: any) {
     }
 
     return newInputs;
-
 }
 
 export function validateAll(inputs: any) {
@@ -92,13 +86,11 @@ export function validateAll(inputs: any) {
     }
 
     return newInputs;
-
 }
 
 export function dirtyAndValidateAll(inputs: any) {
 
     return validateAll(toDirtyAll(inputs));
-
 }
 
 export function hasAnyInvalid(inputs: any) {
@@ -111,7 +103,6 @@ export function hasAnyInvalid(inputs: any) {
     }
 
     return false;
-
 }
 
 export function setBackEndErrors(inputs: any, errors: any[]) {
@@ -124,5 +115,4 @@ export function setBackEndErrors(inputs: any, errors: any[]) {
     })
 
     return newInputs;
-
 }

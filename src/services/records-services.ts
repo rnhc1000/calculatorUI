@@ -12,6 +12,7 @@ export function findRecords(page: number, totalPages: number, totalRecords: numb
     }
 
     const config: AxiosRequestConfig = {
+        
         method: "GET",
         url: "/user/records",
         params: {

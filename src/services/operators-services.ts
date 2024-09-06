@@ -12,13 +12,14 @@ export function findAllRequest() {
     }
 
     const config: AxiosRequestConfig = {
+
         method: "GET",
         url: "/operators",
         withCredentials: true,
         headers: headers
+
         }
 
-    return requestBackEnd(config);
-    
+    return requestBackEnd(config);  
 }
 

@@ -8,7 +8,7 @@ type Props = {
     onDialogClose: Function;
 }
 
-export default function ResultInfo({ result, onDialogClose }: Props) {
+export default function ResultInfo({ result, onDialogClose }: Readonly<Props>) {
     return (
         <Fade>
             <div className="calc-dialog-background">

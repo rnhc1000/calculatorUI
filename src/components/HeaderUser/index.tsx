@@ -36,6 +36,8 @@ export default function HeaderUser() {
             })
 
             .catch(() => {
+                
+                setOK(false);
 
             });
 

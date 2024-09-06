@@ -39,13 +39,14 @@ export function requestOperationsRandom (formData: RandomDto)  {
     }
 
     const config: AxiosRequestConfig = {
+
         method: "POST",
         url: "/randomize",
         withCredentials: true,
         data: requestBody,
         headers: headers
+
     }
     
     return requestBackEnd(config);
-
 }

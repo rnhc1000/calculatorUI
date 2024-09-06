@@ -42,7 +42,6 @@ export function saveAccessToken(accessToken: string) {
 export function getAccessToken() {
 
     return accessTokenRepository.get();
-
 }
 
 export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
@@ -58,7 +57,6 @@ export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
     } catch (error) {
 
         return undefined;
-
     }
 }
 
@@ -84,23 +82,18 @@ export function hasAnyRoles(roles: RoleEnum[]): boolean {
     if (roles.length === 0) {
 
         return true;
-
     }
 
     const tokenPayload = getAccessTokenPayload();
-    // console.log(tokenPayload);
 
     if (tokenPayload !== undefined) {
 
         for (const element of roles) {
             if (tokenPayload.authorities.includes(element)) {
-                // console.log(element);
                 return true;
             }
-            // console.log("Role-> ", element);
         }
     }
 
     return false;
-
 }
