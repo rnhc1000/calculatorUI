@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+.calc-welcome-user {
+  color: var(--primary);
+  text-align: right;
+}
 
 .calc-form-operation {
   width: 100%;

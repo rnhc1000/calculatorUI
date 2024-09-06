@@ -15,8 +15,6 @@ export function loginRequest(loginData: CredentialsDTO) {
     
     const requestBody = { ...loginData };
 
-    // console.log(requestBody);
-
     const config: AxiosRequestConfig = {
 
         method: "POST",

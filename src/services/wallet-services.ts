@@ -29,9 +29,10 @@ export function findBalance(bodyData: WalletDTO) {
 
     }
 
-    const requestBody = { ...bodyData}
+    const requestBody = { ...bodyData }
 
     const config: AxiosRequestConfig = {
+        
         method: "POST",
         url: "/balance",
         withCredentials: true,

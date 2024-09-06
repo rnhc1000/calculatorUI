@@ -1,5 +1,5 @@
-export type OperationsDto = 
-{
+export type OperationsDto = {
+    
     operandOne: string,
     operandTwo: string,
     operator: string,

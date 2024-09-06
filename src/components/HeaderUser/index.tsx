@@ -3,10 +3,46 @@ import './styles.css';
 import logo from '../../assets/svg/undraw_online_organizer_re_156n.svg'
 import { Link, useLocation } from 'react-router-dom';
 import WalletIcon from '../WalletIcon';
+import * as authService from '../../services/auth-services';
+import * as walletService from '../../services/wallet-services';
+import * as walletRepository from '../../localstorage/wallet-repository';
+import { useContext, useState } from 'react';
+import { WalletDTO } from '../../models/wallet';
+import { ContextWalletBalance } from '../../utils/context-wallet';
 
 export default function HeaderUser() {
 
     const location = useLocation();
+    const [OK, setOK] = useState(true);
+    const {setContextWalletBalance} = useContext(ContextWalletBalance);
+
+    const initialState = { username: "", balance: "0.0" };
+    const [balanceData] = useState<WalletDTO>(initialState);
+    const userNameReturned = { ...authService.getAccessTokenPayload() };
+    balanceData.username = userNameReturned.username ?? "nouser@found.com";
+
+    if (OK) {
+
+        walletService.findBalance({ ...balanceData })
+
+            .then(response => {
+
+                const check = response.data;
+                
+                walletRepository.save( {...check} );
+
+                setOK(false);
+
+            })
+
+            .catch(() => {
+
+            });
+
+    }
+
+    setContextWalletBalance(walletService.getWallet().balance);
+    
 
     return (
         <header>
@@ -17,8 +53,7 @@ export default function HeaderUser() {
 
                 <ul className="nav-list">
                     <li>
-                    <WalletIcon />
-                        {/* <img data-toggle="tooltip" data-placement="top" data-animation="" title="Balance" src={wallet} alt="calculator logo;" /> */}
+                        <WalletIcon />
                     </li>
 
                     {location.pathname === "/operations" &&
@@ -26,21 +61,32 @@ export default function HeaderUser() {
                         <li>
                             <Link to='/records'>Records</Link>
                         </li>
+                        
                     }
 
 
-                    {location.pathname === "/records" ? (
+                    {location.pathname === "/records" 
+
+                    ?
+
+                    (
 
                         <li>
                             <Link to='/operations'>Operations</Link>
                         </li>
-                    ) : (
-                    
 
-                    <li>
-                        <Link to='/home'>Logout</Link>
-                    </li>
-                    )}
+                    )
+
+                    :
+                    
+                    (
+
+                        <li>
+                            <Link to='/home'>Logout</Link>
+                        </li>
+
+                    )
+                    }
 
                 </ul>
             </nav>

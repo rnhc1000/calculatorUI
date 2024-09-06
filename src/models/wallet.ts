@@ -1,6 +1,6 @@
 export type WalletDTO = {
 
-    username: string;
-    balance: number;
+    username: string | undefined;
+    balance: string;
 
 }
