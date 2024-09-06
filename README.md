@@ -2,12 +2,31 @@
 Web Calculator
 
 Implements a ReactJS based app, using TypeScript, React Router, React Hooks, React Context,AG-GRID Datatable, JWT Decode and a couple of other libraries, to provide a couple of simple math functionalities (addition, subtraction, multiplication, division, square root, and a random string generation) where each functionality will have a separate cost per request.
+<br />
 Users will have a starting credit/balance. Each request will be deducted from the user’s
 balance. If the user’s balance isn’t enough to cover the request cost, the request shall be denied.
-The design is a try to move from the conventional login pages  and a couple of animations to enrich the UX.
-Each operation is persisted into a database and can be retrieved through a AG-GRID| Datatable eith support for pagination, searching and sorting!
-This app consumes services offered by a REStful API at https://api.ferreiras.dev.br/swagger-ui/index.html and does not make any math, of any sort. All maths are done in the back end and theirs results available at specific endpoints.
+<br />
+The design is a try to move from the conventional login/password pages and I tried to  enrich the UX with information in real time of the balance available and checking the 
+operations done.
+<br />
+Each operation is persisted into a database and can be retrieved through a AG-GRID based datatable supporting pagination, searching and sorting!
+<br />
+This app consumes services offered by a REStful API at https://api.ferreiras.dev.br/swagger-ui/index.html and does not make any math, of any sort at thr front-end. All maths are done in the backend and their results available at specific endpoints.
+<br />
 The user must be authenticated and authorized accordingly to have full access to the API services.
+<br />
+
+I will let you give it a try using these credentials to taste it: <br />
+<b>username:</b> <i>example@example.com</i>, <b>password:</b> <i>example.com</i> <br />
+<br />
+Click at <a href="https://calculatorweb.ferreiras.dev.br" target="_blank">CalculatorWeb-UI</a>, load 
+these credentials, authenticate and get a credit of 100.00 to do your maths!<br />
+Enjoy it....
+<br />
+Why don't you take a look at this short video....to see how it works...
+<br />
+<a href="https://flonnect.com/video/21c13021d0d1-4cc2-86b5-0a455011855a" target="_blank">Short Video</a>
+<hr />
 
 ## _Table of contents_
 - [Web Calculator UI - @Ricardo Ferreira](#web-calculator-ui---ricardo-ferreira)
@@ -29,7 +48,7 @@ These web pages were coded using ReactJS exploring hooks such as useState, useLo
     - components|
       - Footer
       - Header
-      - -FormInput
+      - FormInput
       - Operations
       - Welcome
     - routes
@@ -59,111 +78,21 @@ These web pages were coded using ReactJS exploring hooks such as useState, useLo
 
  ## _How I did it_
 ```jsx
-import QueryString from "query-string";
-import { AccessTokenPayloadDTO, CredentialsDTO, RoleEnum } from "../models/auth";
-import { CLIENT_ID, CLIENT_SECRET } from "../utils/system";
-import { AxiosRequestConfig } from "axios";
-import { requestBackEnd } from "../utils/requests";
-import * as accessTokenRepository from '../localstorage/access-token-repository';
-import { jwtDecode } from "jwt-decode";
+import { createContext } from "react";
 
-export function loginRequest(loginData: CredentialsDTO) {
+export type ContextWalletBalanceType = {
 
-    const headers = {
-
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET)
-
-    }
-
-    const requestBody = QueryString.stringify({ ...loginData, grant_type: "password" });
-
-    const config: AxiosRequestConfig = {
-
-        method: "POST",
-        url: "/oauth/token",
-        data: requestBody,
-        headers: headers
-        
-    }
-
-    return requestBackEnd(config);
+    contextWalletBalance: string;
+    setContextWalletBalance: (contextWalletBalance : string) => void;
 
 }
 
-export function logout() {
+export const ContextWalletBalance = createContext<ContextWalletBalanceType>({
 
-    accessTokenRepository.remove();
-
-}
-
-export function saveAccessToken(token: string) {
-
-    accessTokenRepository.save(token);
-
-}
-
-export function getAccessToken() {
-
-    return accessTokenRepository.get();
-
-}
-
-export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
-
-    try {
-
-        const token = accessTokenRepository.get();
-        return token == null
-            ? undefined
-            : (jwtDecode(token) as AccessTokenPayloadDTO);
-
-    } catch (error) {
-
-        return undefined;
-
-    }
-}
-
-/**
- * 
- * Date.now() - JS returns 13 digits
- * exp data on token returns 10 digits
- * Solution: multiply exp times 1000
- * in order to make the correct comparison
- * between now() and exp;
- * 
- */
-
-export function isAuthenticated(): boolean {
-    const tokenPayload = getAccessTokenPayload();
-
-    return !!(tokenPayload && 
-        tokenPayload.exp * 1000 > Date.now());
-}
-
-export function hasAnyRoles(roles: RoleEnum[]): boolean {
+    contextWalletBalance: "0",
+    setContextWalletBalance: () => {}
     
-    if (roles.length === 0) {
-
-        return true;
-
-    }
-
-    const tokenPayload = getAccessTokenPayload();
-
-    if (tokenPayload !== undefined) {
-
-        for (const element of roles) {
-            if (tokenPayload.authorities.includes(element)) {
-                return true;
-            }
-        }
-    }
-
-    return false;
-
-}
+})
 ``` 
 
 ## _Continued development_
