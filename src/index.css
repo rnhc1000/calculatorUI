@@ -156,7 +156,15 @@ a:hover {
         display: unset;
     }
 }
+@media (max-width: 640px) {
 
+    .calc-dialog-box {
+
+        height: 20rem;
+        width: 20rem;
+
+    }
+}
 .calc-logged-user {
     display: flex;
     flex-direction: column;

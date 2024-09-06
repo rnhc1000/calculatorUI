@@ -1,11 +1,12 @@
-import { useState } from 'react';
 import './styles.css';
+import { useContext, useState } from 'react';
 import * as forms from '../../utils/forms';
 import { JackInTheBox } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
-import { ClipLoader } from 'react-spinners';
+import * as walletService from '../../services/wallet-services';
 import ResultInfo from '../ResultInfo';
+import { ContextWalletBalance } from '../../utils/context-wallet';
 
 export default function Operator() {
     const [resultInfoData, setResultInfoData] = useState({
@@ -13,7 +14,11 @@ export default function Operator() {
         result: "0.00"
     });
 
-
+    const spinners = ["loader", "loader", "loader", "loader"];
+    const spinnersList: string[] = [];
+    spinners.forEach((spinners) => {
+        return spinnersList.push(String(<div className={spinners}></div>));
+    })
 
     const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
     const [formData, setFormData] = useState(initialFormData);
@@ -25,7 +30,12 @@ export default function Operator() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const {setContextWalletBalance} = useContext(ContextWalletBalance);
+
     const [loading, setLoading] = useState(false);
+
+    const userNameReturned = { ...authService.getAccessTokenPayload() };
+    formData.username = userNameReturned.username ?? "nouser@found.com";
 
     const handleSubmit = (event: { preventDefault: () => void; }) => {
 
@@ -33,20 +43,17 @@ export default function Operator() {
 
         setSubmitResponseFail(false);
 
-        const userNameReturned = { ...authService.getAccessTokenPayload() };
-        formData.username = userNameReturned.username ?? "nouser@found.com";
-
         const formDataValidated = forms.dirtyAndValidateAll(formData);
 
-        console.log(formDataValidated);
         if (forms.hasAnyInvalid(formDataValidated)) {
 
             setFormData(formDataValidated);
             return;
 
         }
-
+   
         setFormData(formDataValidated);
+
         const operationNumeric: string = formData.operator;
 
         if (operationNumeric != "random_string") {
@@ -60,20 +67,26 @@ export default function Operator() {
                     const check = response.data.result;
 
                     if (check == "-1") {
+
                         setResultInfoData({ result: "No Balance Available!", visible: true });
+
                     } else {
+
                         setResultInfoData({ result: check, visible: true });
+
                     }
 
                     setLoading(false);
+
+                    setContextWalletBalance(walletService.getWallet().balance);
 
                 })
 
                 .catch(() => {
 
+                    setResultInfoData({ result: "Operation not allowed!!!", visible: true });
                     setSubmitResponseFail(true);
                     setLoading(false);
-
 
                 })
 
@@ -96,19 +109,24 @@ export default function Operator() {
                     const check = response.data.random;
 
                     if (check == "-1") {
-                        setResultInfoData({ result: "No Balance Available!", visible: true });
-                    } else {
-                        setResultInfoData({ result: check, visible: true });
-                    }
-                    setLoading(false);
 
+                        setResultInfoData({ result: "No Balance Available!", visible: true });
+
+                    } else {
+
+                        setResultInfoData({ result: check, visible: true });
+
+                    }
+
+                    setLoading(false);
+                    setContextWalletBalance(walletService.getWallet().balance);
 
                 })
                 .catch(() => {
 
+                    setResultInfoData({ result: "Operation not allowed", visible: true });
                     setSubmitResponseFail(true);
                     setLoading(false);
-
 
                 })
 
@@ -125,8 +143,10 @@ export default function Operator() {
 
         <JackInTheBox>
             <section id="login-section" className="calc-container">
+                <div className="calc-welcome-user">
+                    <p>Welcome! {formData.username}</p>
+                </div>
                 <div className="calc-login-form-container">
-
                     <form className="calc-form" onSubmit={handleSubmit}>
                         <div className="calc-form-control-container">
                             <label className="label-input" htmlFor="operator">Operator</label>
@@ -176,21 +196,23 @@ export default function Operator() {
                         {
                             submitResponseFail &&
                             <div className="calc-form-global-error">
-                                System not available now! Try again later!!!
+                                Try again!!!
                             </div>
                         }
 
                         <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
                             Process it!
                             {loading && (
-          <div className="spinner-loader">
-            <div className="loader"></div>
-            <div className="loader"></div>
-            <div className="loader"></div>
-            <div className="loader"></div>
-            <div className="loader"></div>
-          </div>
-        )}
+
+                                <div className="spinner-loader">
+
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+
+                                </div>
+                            )}
                         </button>
                     </form>
                 </div>

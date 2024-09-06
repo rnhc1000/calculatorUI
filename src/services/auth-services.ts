@@ -9,14 +9,11 @@ export function loginRequest(loginData: CredentialsDTO) {
     const headers = {
 
         "Content-Type": "application/json",
-        // Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET)
 
     }
 
     
     const requestBody = { ...loginData };
-
-    console.log(requestBody);
 
     const config: AxiosRequestConfig = {
 
@@ -86,7 +83,6 @@ export function hasAnyRoles(roles: RoleEnum[]): boolean {
     
     if (roles.length === 0) {
 
-
         return true;
 
     }
@@ -98,10 +94,10 @@ export function hasAnyRoles(roles: RoleEnum[]): boolean {
 
         for (const element of roles) {
             if (tokenPayload.authorities.includes(element)) {
-                console.log(element);
+                // console.log(element);
                 return true;
             }
-            console.log("Role-> ", element);
+            // console.log("Role-> ", element);
         }
     }
 

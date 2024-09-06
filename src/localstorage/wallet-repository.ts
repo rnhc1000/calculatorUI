@@ -1,4 +1,4 @@
-import { WalletDTO, WalletOperationsDTO } from "../models/wallet";
+import { WalletDTO } from "../models/wallet";
 import { WALLET_KEY } from '../utils/system';
 
 export function save(wallet: WalletDTO) {
@@ -10,21 +10,16 @@ export function save(wallet: WalletDTO) {
 
 export function get() : WalletDTO {
 
-    const walletEmpty: string = '{"items":[]}';
+    const walletEmpty: string = '0';
     const walletBalance: string = localStorage.getItem(WALLET_KEY) ?? walletEmpty;
-    const obj = JSON.parse(walletBalance) as WalletDTO;
-    const wallet  = new WalletDTO();
-    obj.operations.forEach(operation => {
-        wallet.operations.push(new WalletOperationsDTO(operation.operationId, operation.cost));
-    })
+    const wallet = JSON.parse(walletBalance) as WalletDTO;
     return wallet;
-
 }
 
 
 export function clear() {
 
-    const walletEmpty: string = '{"items":[]}';
+    const walletEmpty: string = '0';
     localStorage.setItem(WALLET_KEY, walletEmpty );
 
 }

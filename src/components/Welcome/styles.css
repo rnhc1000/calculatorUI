@@ -89,6 +89,8 @@
   .home-img {
     width: 360px;
     height: 250px;
+    max-width: 95%;
   }
 
 }
+

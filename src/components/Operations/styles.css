@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+.calc-welcome-user {
+  color: var(--primary);
+  text-align: right;
+}
 
 .calc-form-operation {
   width: 100%;
@@ -103,11 +107,11 @@
 
 .loader:nth-child(1) {
   animation-delay: -1.5s;
-  background: #5b1d99;
+  background: #ee4208;
 }
 .loader:nth-child(2) {
   animation-delay: -1s;
-  background: #0074b4;
+  background: #0805ee;
 }
 .loader:nth-child(3) {
   animation-delay: -0.5s;
@@ -116,10 +120,7 @@
 .loader:nth-child(4) {
   background: #ffd41f;
 }
-.loader:nth-child(5) {
-  animation-delay: -0.5s;
-  background: #fc6e3d;
-}
+
 
 
 @keyframes rotate {

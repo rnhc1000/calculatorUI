@@ -2,14 +2,14 @@ import { createContext } from "react";
 
 export type ContextWalletBalanceType = {
 
-    contextWalletBalance: number;
-    setContextWalletBalance: (contextWalletBalance : number) => void;
+    contextWalletBalance: string;
+    setContextWalletBalance: (contextWalletBalance : string) => void;
 
 }
 
 export const ContextWalletBalance = createContext<ContextWalletBalanceType>({
 
-    contextWalletBalance: 0,
+    contextWalletBalance: "0",
     setContextWalletBalance: () => {}
     
 })
