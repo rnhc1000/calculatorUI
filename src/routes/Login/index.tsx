@@ -9,7 +9,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import DatePipe from '../../components/DatePipe';
 
-import JackInTheBox from 'react-awesome-reveal';
+import Fade from 'react-awesome-reveal';
 
 export default function Login() {
 
@@ -19,19 +19,21 @@ export default function Login() {
             id: "username",
             name: "username",
             type: "text",
-            placeholder: "Email",
+            required: "email",
+            placeholder: "Enter your email...",
             autoComplete: "username",
             validation: function (value: string) {
                 return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value.toLowerCase());
             },
-            message: "Please! Inform a valid email account",
+            message: "Only valid emails!",
         },
         password: {
             value: "",
             id: "password",
             name: "password",
             type: "password",
-            placeholder: "Password",
+            required: "password",
+            placeholder: "Enter your password...",
             autoComplete: "current-password"
         }
     });
@@ -54,22 +56,21 @@ export default function Login() {
             return;
         }
 
-        authService.loginRequest(
-            forms.toValues(formData)
-        )
+        authService.loginRequest(forms.toValues(formData))
+
             .then(response => {
+
                 const token = response.data.accessToken
                 
                 authService.saveAccessToken(token);
 
-                // console.log("Token", authService.getAccessToken());
-
-                // console.log("Payload",authService.getAccessTokenPayload());
                 setContextTokenPayload(authService.getAccessTokenPayload());
                 
                 navigate("/operations");
             })
+
             .catch(() => {
+
                 setSubmitResponseFail(true);
             })
     }
@@ -85,17 +86,15 @@ export default function Login() {
     }
 
     return (
-
         <>
         <Header />
             <br />
             <DatePipe />
-            <JackInTheBox>
+            <Fade>
                 <section id="login-section" className="calc-container">
                     <div className="calc-login-form-container">
 
                         <form className="calc-form" onSubmit={handleSubmit}>
-
                             <div className="calc-form-control-container">
                                 <div>
                                     <FormInput
@@ -105,6 +104,7 @@ export default function Login() {
                                         onChange={handleInputChange} />
                                     <div className="calc-form-error">{formData.username.message}</div>
                                 </div>
+
                                 <div>
                                     <FormInput
                                         {...formData.password}
@@ -116,19 +116,19 @@ export default function Login() {
 
                             {submitResponseFail &&
                                 <div className="calc-form-global-error">
-                                    Username or password invalid! Try again!!!
+                                    Username or password invalid! Try again!!!                                 
                                 </div>}
 
                             <div>
                                 <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
-                                    Authenticate
+                                    Authenticate...
                                 </button>
                             </div>
                         </form>
 
                     </div>
                 </section>
-            </JackInTheBox>
+            </Fade>
             <Footer /></>
     );
 }

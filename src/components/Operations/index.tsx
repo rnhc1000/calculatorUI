@@ -1,7 +1,7 @@
 import './styles.css';
 import { useContext, useState } from 'react';
 import * as forms from '../../utils/forms';
-import { JackInTheBox } from 'react-awesome-reveal';
+import { Fade } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
 import * as walletService from '../../services/wallet-services';
@@ -141,7 +141,7 @@ export default function Operator() {
 
     return (
 
-        <JackInTheBox>
+        <Fade>
             <section id="login-section" className="calc-container">
                 <div className="calc-welcome-user">
                     <p>Welcome! {formData.username}</p>
@@ -159,12 +159,12 @@ export default function Operator() {
                                 id="operator"
                             >
                                 <option>Pick an operator!</option>
-                                <option value="addition">Addition(+)</option>
-                                <option value="division">Division(/)</option>
+                                <option value="addition">Addition(&#x2b;)</option>
+                                <option value="division">Division(&divide;)</option>
                                 <option value="subtraction">Subtraction(-)</option>
-                                <option value="multiplication">Multiplication(x)</option>
-                                <option value="square_root">Square Root(V)</option>
-                                <option value="random_string">Random String(R)</option>
+                                <option value="multiplication">Multiplication(&times;)</option>
+                                <option value="square_root">Square Root(&radic;)</option>
+                                <option value="random_string">Random String(&xi;)</option>
                             </select>
                             <label className="label-input" htmlFor="operandOne">Operand One</label>
                             {
@@ -172,20 +172,19 @@ export default function Operator() {
                                     onChange={handleChange}
                                     value={formData.operandOne}
                                     className="calc-form-operation"
-                                    type="text"
+                                    type="number"
                                     name="operandOne"
                                     id="operandOne"
-                                    placeholder="Enter an operand..."
+                                    placeholder="Enter an operand..."                            
                                 />
                             }
                             <label className="label-input" htmlFor="operandTwo">Operand Two</label>
                             {
-
                                 <input
                                     onChange={handleChange}
                                     value={formData.operandTwo}
                                     className="calc-form-operation"
-                                    type="text"
+                                    type="number"
                                     name="operandTwo"
                                     id="operandTwo"
                                     placeholder="Enter an operand..."
@@ -225,7 +224,7 @@ export default function Operator() {
                 }
 
             </section>
-        </JackInTheBox>
+        </Fade>
 
     )
 }

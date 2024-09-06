@@ -13,6 +13,7 @@ export function get() : WalletDTO {
     const walletEmpty: string = '0';
     const walletBalance: string = localStorage.getItem(WALLET_KEY) ?? walletEmpty;
     const wallet = JSON.parse(walletBalance) as WalletDTO;
+    
     return wallet;
 }
 

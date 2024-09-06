@@ -22,12 +22,15 @@
   height: 3.125rem;
   font-size: 1.5rem;
   font-weight: 100;
+  font-style: italic;
   margin: 0.1rem;
   padding: 0 1.5rem;
   color: var(--primary);
-  border-radius: 4px;
-  border: 1px solid var(--calc-color-card-border);
+  border-radius: 5px;
+  border: 1px solid var(--primary);
   background: none;
+  border-style: outset;
+  border-width: thin
 }
 
 .label-input {
@@ -50,12 +53,10 @@
   align-content: center;
 }
 
-
 .dropdown {
   position: relative;
   display: inline-block;
 }
-
 
 .dropdown-content {
   display: none;
@@ -98,8 +99,8 @@
 .loader {
   border: 0;
   margin: 0;
-  width: 40%;
-  height: 40%;
+  width: 50%;
+  height: 50%;
   position: absolute;
   border-radius: 50%;
   animation: rotate 2s ease infinite;
@@ -107,7 +108,7 @@
 
 .loader:nth-child(1) {
   animation-delay: -1.5s;
-  background: #ee4208;
+  background: #f70202;
 }
 .loader:nth-child(2) {
   animation-delay: -1s;
@@ -115,13 +116,11 @@
 }
 .loader:nth-child(3) {
   animation-delay: -0.5s;
-  background: #00b34c;
+  background: #02f869;
 }
 .loader:nth-child(4) {
-  background: #ffd41f;
+  background: #f79502;
 }
-
-
 
 @keyframes rotate {
   0%,
