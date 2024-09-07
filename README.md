@@ -11,7 +11,7 @@ operations done.
 <br />
 Each operation is persisted into a database and can be retrieved through a AG-GRID based datatable supporting pagination, searching and sorting!
 <br />
-This app consumes services offered by a REStful API at https://api.ferreiras.dev.br/swagger-ui/index.html and does not make any math, of any sort at thr front-end. All maths are done in the backend and their results available at specific endpoints.
+This app consumes services offered by a REStful API at https://api.ferreiras.dev.br/swagger-ui/index.html and does not make any math, of any sort at the front-end. All maths are done in the backend and their results available at specific endpoints.
 <br />
 The user must be authenticated and authorized accordingly to have full access to the API services.
 <br />
@@ -19,7 +19,7 @@ The user must be authenticated and authorized accordingly to have full access to
 I will let you give it a try using these credentials to taste it: <br />
 <b>username:</b> <i>example@example.com</i>, <b>password:</b> <i>example.com</i> <br />
 <br />
-Click at <a href="https://calculatorweb.ferreiras.dev.br" target="_blank">CalculatorWeb-UI</a>, load 
+Click at <a href="https://calculatorweb.ferreiras.dev.br" target="_blank" >CalculatorWeb-UI</a>, load 
 these credentials, authenticate and get a credit of 100.00 to do your maths!<br />
 Enjoy it....
 <br />
@@ -41,7 +41,7 @@ Why don't you take a look at this short video....to see how it works...
 - [_Author_](#author)
 - [Acknowledgments](#acknowledgments)
 ## _Overview_
-These web pages were coded using ReactJS exploring hooks such as useState, useLocation, useEffect:
+These web pages were coded using ReactJS exploring hooks such as useState, useLocation, useEffect, useContext:
 - src|
     - App.tsx
     - assets|
@@ -55,7 +55,18 @@ These web pages were coded using ReactJS exploring hooks such as useState, useLo
       - Home
       - Login
       - Operations
+    - services
+      - auth-services.ts
+      - operation-services.ts
+      - operators-service.ts
+      - records-service.ts
+      - wallet-services.ts
     - utils
+      - context-token.ts
+      - context-wallet.ts
+    - localstorage
+      - access-token-repository.ts
+      - wallet-repository.ts
    - App.tsx
    - index.css
    - main.tsx
