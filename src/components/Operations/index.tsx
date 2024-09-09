@@ -7,6 +7,9 @@ import * as authService from '../../services/auth-services';
 import * as walletService from '../../services/wallet-services';
 import ResultInfo from '../ResultInfo';
 import { ContextWalletBalance } from '../../utils/context-wallet';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { useNavigate } from 'react-router-dom';
 
 export default function Operator() {
     const [resultInfoData, setResultInfoData] = useState({
@@ -20,6 +23,7 @@ export default function Operator() {
         return spinnersList.push(String(<div className={spinners}></div>));
     })
 
+    const navigate = useNavigate();
     const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
     const [formData, setFormData] = useState(initialFormData);
 
@@ -82,8 +86,25 @@ export default function Operator() {
 
                 })
 
-                .catch(() => {
+                .catch((error) => {
 
+                    if (error.response.status == "401") {
+                        authService.logout();
+                        walletService.clearWallet();
+                        withReactContent(Swal).fire({
+                            title: 'Timeout!',
+                            background: "#ecd9bb",
+                            text: 'Time limit exceeded!',
+                            icon: 'warning',
+                            confirmButtonColor: "#fa9c05",
+                            showCancelButton: false,
+                            confirmButtonText: `OK!`,
+                            footer: '<b>Credentials expired! Please, authenticate again!</b>'
+                          }).then(() => {
+                          navigate("/home");
+                          })
+                      } 
+                    setSubmitResponseFail(true);  
                     setResultInfoData({ result: "Operation not allowed!!!", visible: true });
                     setSubmitResponseFail(true);
                     setLoading(false);
@@ -122,7 +143,23 @@ export default function Operator() {
                     setContextWalletBalance(walletService.getWallet().balance);
 
                 })
-                .catch(() => {
+                .catch((error) => {
+                    if (error.response.status == "401") {
+                        authService.logout();
+                        walletService.clearWallet();
+                        withReactContent(Swal).fire({
+                            title: 'Timeout!',
+                            background: "#ecd9bb",
+                            text: 'Time limit exceeded!',
+                            icon: 'warning',
+                            confirmButtonColor: "#fa9c05",
+                            showCancelButton: false,
+                            confirmButtonText: `OK!`,
+                            footer: '<b>Credentials expired! Please, authenticate again!</b>'
+                          }).then(() => {
+                          navigate("/home");
+                          })
+                      } 
 
                     setResultInfoData({ result: "Operation not allowed", visible: true });
                     setSubmitResponseFail(true);
