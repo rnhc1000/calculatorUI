@@ -10,8 +10,14 @@ import Footer from '../../components/Footer';
 import DatePipe from '../../components/DatePipe';
 
 import Fade from 'react-awesome-reveal';
+// import ReCAPTCHA from 'react-google-recaptcha'
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 export default function Login() {
+
+    // console.log(import.meta.env.VITE_SITE_KEY);
+    // const recaptcha = useRef(null);
 
     const [formData, setFormData] = useState<any>({
         username: {
@@ -61,19 +67,36 @@ export default function Login() {
             .then(response => {
 
                 const token = response.data.accessToken
-                
+
                 authService.saveAccessToken(token);
 
                 setContextTokenPayload(authService.getAccessTokenPayload());
-                
+
                 navigate("/operations");
             })
 
-            .catch(() => {
+            .catch((error) => {    
 
-                setSubmitResponseFail(true);
-            })
-    }
+                if (error.response.status == "401") {
+                    withReactContent(Swal).fire({
+                        title: 'Not Authorized!',
+                        background: "#ecd9bb",
+                        text: 'Try again!',
+                        icon: 'error',
+                        confirmButtonColor: "#fa9c05",
+                        showCancelButton: false,
+                        confirmButtonText: `OK!`,
+                        footer: '<b>Username or password not valid!</b>'
+
+                      }).then(() => {
+                      navigate("/home");
+                      })
+                  }  
+                  
+                })
+
+        }
+    
 
     function handleInputChange(event: any) {
         const result = forms.updateAndValidate(formData, event.target.name, event.target.value);
@@ -85,9 +108,10 @@ export default function Login() {
         setFormData(newFormData);
     }
 
+
     return (
         <>
-        <Header />
+            <Header />
             <br />
             <DatePipe />
             <Fade>
@@ -116,14 +140,16 @@ export default function Login() {
 
                             {submitResponseFail &&
                                 <div className="calc-form-global-error">
-                                    Username or password invalid! Try again!!!                                 
+                                    Username or password invalid! Try again!!!
                                 </div>}
-
                             <div>
                                 <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
                                     Authenticate...
                                 </button>
+                                <br />
                             </div>
+                            {/* <ReCAPTCHA ref={recaptcha} sitekey={import.meta.env.VITE_SITE_KEY} size='normal' theme='dark' /> */}
+
                         </form>
 
                     </div>
@@ -132,3 +158,19 @@ export default function Login() {
             <Footer /></>
     );
 }
+
+/**
+ *          console.error('An error ocurred, error.error');
+                    Swal.fire({
+                      title: 'Check your network connectivity!',
+                      text: 'Try again!',
+                      icon: 'error',
+                      showCancelButton: false,
+                      confirmButtonText: `
+                   OK!
+                  `,
+                    }).then(() => {
+                    navigate("/home");
+                    })
+                }
+ */
