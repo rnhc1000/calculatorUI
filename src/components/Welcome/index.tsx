@@ -1,6 +1,6 @@
 import './styles.css';
 import { Link } from 'react-router-dom';
-import homeLogo from '../../assets/svg/undraw_online_organizer_re_156n.svg'
+import homeLogo from '../../assets/svg/undraw_cloud_docs_re_xjht.svg'
 export default function Welcome() {
 
     return (

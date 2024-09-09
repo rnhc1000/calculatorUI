@@ -1,6 +1,6 @@
 import './styles.css';
 
-import logo  from '../../assets/svg/undraw_online_organizer_re_156n.svg'
+import logo  from '../../assets/svg/undraw_cloud_docs_re_xjht.svg'
 
 import { Link } from 'react-router-dom';
 
