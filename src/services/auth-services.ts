@@ -47,6 +47,7 @@ export function getAccessToken() {
 export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
 
     try {
+
         const accessToken = accessTokenRepository.get();
         
         return accessToken == null
@@ -71,10 +72,23 @@ export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
  */
 
 export function isAuthenticated(): boolean {
+
     const tokenPayload = getAccessTokenPayload();
 
     return !!(tokenPayload && 
         tokenPayload.exp * 1000 > Date.now());
+}
+
+export function isAcessTokenValid(): boolean {
+
+    const tokenPayload = getAccessTokenPayload();
+    
+    if (tokenPayload !== undefined && tokenPayload.exp * 1000 > Date.now()) {
+
+        return true;
+    }
+
+    return false;
 }
 
 export function hasAnyRoles(roles: RoleEnum[]): boolean {

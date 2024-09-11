@@ -8,6 +8,7 @@ export type CredentialsDTO = {
 export type RoleEnum = "ROLE_ADMIN | ROLE_USER";
 
 export type AccessTokenPayloadDTO = {
+
     iss: string,
     sub: string,
     exp: number,
@@ -15,4 +16,5 @@ export type AccessTokenPayloadDTO = {
     username: string,
     scope: string,
     authorities: RoleEnum[] 
+    
 }
