@@ -9,7 +9,7 @@ export default function WalletIcon() {
 
     return (
         <>
-            <img className="calc-wallet" src={walletIcon} alt="Wallet"></img>
+            <img className="calc-wallet" data-toggle="tooltip" data-placement="top" data-animation="" title="Balance" src={walletIcon} alt="Wallet"></img>
             <div className="wallet-balance">{contextWalletBalance}</div>   
         </>
     )

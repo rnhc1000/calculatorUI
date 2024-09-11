@@ -19,7 +19,8 @@ export default function App() {
   const MemoizedHome = React.memo(Home);
   const MemoizedLogin = React.memo(Login);
   const MemoizedOperation = React.memo(Operation);
-  const MemoizedRecords = React.memo(Records)
+  const MemoizedRecords = React.memo(Records);
+  
   const [contextTokenPayload, setContextTokenPayload] = useState<AccessTokenPayloadDTO>();
   const [contextWalletBalance, setContextWalletBalance] = useState<string>("0");
 

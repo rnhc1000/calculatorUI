@@ -3,7 +3,6 @@
     align-items: center;
     margin: 0 auto;
     justify-content: center;
-    align-items: center;
     color: var(--primary);
     font-size: 1.25rem;
     position: relative;
@@ -13,4 +12,10 @@
 
 .calc-wallet {
     margin-top: 0.5rem;
+    transition: width 2s;
+}
+
+.calc-wallet > img:hover {
+    width: 1.5rem;
+    zoom: normal;
 }
