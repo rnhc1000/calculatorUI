@@ -195,7 +195,7 @@ export default function Operator() {
                                 name="operator"
                                 id="operator"
                             >
-                                <option>Pick an operator!</option>
+                                <option label='Pick an operator...'></option>
                                 <option value="addition">Addition(&#x2b;)</option>
                                 <option value="division">Division(&divide;)</option>
                                 <option value="subtraction">Subtraction(-)</option>
@@ -212,7 +212,8 @@ export default function Operator() {
                                     type="number"
                                     name="operandOne"
                                     id="operandOne"
-                                    placeholder="Enter an operand..."                            
+                                    placeholder="Enter an operand..."
+                                    required                            
                                 />
                             }
                             <label className="label-input" htmlFor="operandTwo">Operand Two</label>
