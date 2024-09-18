@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { BASE_URL } from "./system";
 import * as authService from '../services/auth-services';
-import { history } from '../utils/history';
 
 export function requestBackEnd(config: AxiosRequestConfig) {
 
@@ -32,15 +31,11 @@ axios.interceptors.response.use(
     response => response,
     error => {
 
-        if(error.response) {
-            if (error.response.status === 401 || error.response.status === 403) {
-                history.push("/login");
-            }
-        }
+        if(error.response ) {
 
-        if(error.response && error.response.data) {
             return Promise.reject(error.response.data);
         }
+
         return Promise.reject(error);
 
     }
