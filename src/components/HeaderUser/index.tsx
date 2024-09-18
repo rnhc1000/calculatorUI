@@ -6,14 +6,13 @@ import WalletIcon from '../WalletIcon';
 import * as authService from '../../services/auth-services';
 import * as walletService from '../../services/wallet-services';
 import * as walletRepository from '../../localstorage/wallet-repository';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { WalletDTO } from '../../models/wallet';
 import { ContextWalletBalance } from '../../utils/context-wallet';
 
 export default function HeaderUser() {
 
     const location = useLocation();
-    const [OK, setOK] = useState(true);
     const {setContextWalletBalance} = useContext(ContextWalletBalance);
 
     const initialState = { username: "", balance: "0.0" };
@@ -21,28 +20,16 @@ export default function HeaderUser() {
     const userNameReturned = { ...authService.getAccessTokenPayload() };
     balanceData.username = userNameReturned.username ?? "nouser@found.com";
 
-    if (OK) {
-
+    useEffect(() => {
         walletService.findBalance({ ...balanceData })
-
             .then(response => {
-
                 const check = response.data;
-                
                 walletRepository.save( {...check} );
-
-                setOK(false);
-
             })
 
-            .catch(() => {
-                
-                setOK(false);
+    }, [balanceData]);
 
-            });
-
-    }
-
+  
     setContextWalletBalance(walletService.getWallet().balance);
     
 
