@@ -19,32 +19,30 @@ export function requestBackEnd(config: AxiosRequestConfig) {
 }
 
 axios.interceptors.request.use(
-    function (config) {
-        return config;
-    },
-    function (error) {
-        return Promise.reject(error);
+
+    config => config,
+
+    error => {
+        return error.request;
     }
 );
 
 axios.interceptors.response.use(
-    function (response) {
-        return response;
-    },
-    function (error) {
-        if (error.response.status === 401) {
-            history.push("/login");
-        }
 
-        if (error.response.status === 403) {
-            history.push("/login")
+    response => response,
+    error => {
+
+        if(error.response) {
+            if (error.response.status === 401 || error.response.status === 403) {
+                history.push("/login");
+            }
         }
 
         if(error.response && error.response.data) {
-            console.log(error.response.data);
             return Promise.reject(error.response.data);
         }
-        console.log(error.response.data);
         return Promise.reject(error);
+
     }
 );
+

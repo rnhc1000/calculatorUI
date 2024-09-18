@@ -34,7 +34,7 @@ export default function Operator() {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const {setContextWalletBalance} = useContext(ContextWalletBalance);
+    const { setContextWalletBalance } = useContext(ContextWalletBalance);
 
     const [loading, setLoading] = useState(false);
 
@@ -55,7 +55,7 @@ export default function Operator() {
             return;
 
         }
-   
+
         setFormData(formDataValidated);
 
         const operationNumeric: string = formData.operator;
@@ -66,8 +66,8 @@ export default function Operator() {
 
             operationsService.requestOperationsNumbers({ ...formData })
 
-                .then(response => {
-
+                .then(response => {    
+                  
                     const check = response.data.result;
 
                     if (check == "-1") {
@@ -87,8 +87,9 @@ export default function Operator() {
                 })
 
                 .catch((error) => {
+                    console.log(error);
 
-                    if (error.response.status == "401") {
+                    if (error.status == "Not authorized") {
                         authService.logout();
                         walletService.clearWallet();
                         withReactContent(Swal).fire({
@@ -100,14 +101,32 @@ export default function Operator() {
                             showCancelButton: false,
                             confirmButtonText: `OK!`,
                             footer: '<b>Credentials expired! Please, authenticate again!</b>'
-                          }).then(() => {
-                          navigate("/home");
-                          })
-                      } 
-                    setSubmitResponseFail(true);  
-                    setResultInfoData({ result: "Operation not allowed!!!", visible: true });
-                    setSubmitResponseFail(true);
-                    setLoading(false);
+                        }).then(() => {
+                            setSubmitResponseFail(true);
+                            setResultInfoData({ result: "Operation not allowed!!!", visible: true });
+                            setSubmitResponseFail(true);
+                            setLoading(false);
+                            navigate("/home");
+                        })
+                    } else if (error.status == "Illegal Math Operation!") {
+
+                        withReactContent(Swal).fire({
+                            title: 'Not Allowed!',
+                            background: "#ecd9bb",
+                            text: 'Arithmetic Operation Not Allowed!',
+                            icon: 'warning',
+                            confirmButtonColor: "#fa9c05",
+                            showCancelButton: false,
+                            confirmButtonText: `OK!`,
+                            footer: '<b>Do maths with valid operands!</b>'
+                        }).then(() => {
+                            setSubmitResponseFail(true);
+                            setResultInfoData({ result: "Operation not allowed!!!", visible: true });
+                            setSubmitResponseFail(true);
+                            setLoading(false);
+                            navigate("/operations");
+                        })
+                    }
 
                 })
 
@@ -144,7 +163,7 @@ export default function Operator() {
 
                 })
                 .catch((error) => {
-                    if (error.response.status == "401") {
+                    if (error.response.status == "Not authorized") {
                         authService.logout();
                         walletService.clearWallet();
                         withReactContent(Swal).fire({
@@ -156,10 +175,10 @@ export default function Operator() {
                             showCancelButton: false,
                             confirmButtonText: `OK!`,
                             footer: '<b>Credentials expired! Please, authenticate again!</b>'
-                          }).then(() => {
-                          navigate("/home");
-                          })
-                      } 
+                        }).then(() => {
+                            navigate("/home");
+                        })
+                    }
 
                     setResultInfoData({ result: "Operation not allowed", visible: true });
                     setSubmitResponseFail(true);
@@ -213,7 +232,6 @@ export default function Operator() {
                                     name="operandOne"
                                     id="operandOne"
                                     placeholder="Enter an operand..."
-                                    required                            
                                 />
                             }
                             <label className="label-input" htmlFor="operandTwo">Operand Two</label>

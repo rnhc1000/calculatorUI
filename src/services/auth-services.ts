@@ -4,10 +4,16 @@ import { requestBackEnd } from "../utils/requests";
 import * as accessTokenRepository from '../localstorage/access-token-repository';
 import { jwtDecode } from "jwt-decode";
 
+
+
+
 export function loginRequest(loginData: CredentialsDTO) {
+
 
     const headers = {
 
+      
+        'Accept': 'application/json',
         "Content-Type": "application/json",
 
     }

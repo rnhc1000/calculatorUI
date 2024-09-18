@@ -33,6 +33,7 @@ export default function App() {
     }
   }, []);
 
+
   return (
     <ContextToken.Provider value={{ contextTokenPayload, setContextTokenPayload }}>
       <ContextWalletBalance.Provider value={{ contextWalletBalance, setContextWalletBalance }}>
