@@ -72,7 +72,7 @@
   background-color: #3e8e41;
 }
 
-.spinner-loader {
+.spinner {
   width: 100px;
   height: 100px;
   margin: 0;
@@ -82,8 +82,8 @@
   transform: translate(-50%, -50%);
 }
 
-.loader {
-  border: 0;
+ .loader {
+  border: 16px solid blue;
   margin: 0;
   width: 50%;
   height: 50%;
@@ -94,7 +94,7 @@
 
 .loader:nth-child(1) {
   animation-delay: -1.5s;
-  background: #f70202;
+  background-color: #f70202;
 }
 .loader:nth-child(2) {
   animation-delay: -1s;
@@ -112,15 +112,21 @@
   0%,
   100% {
     transform: translate(0);
+    transform: scale(2)
   }
   25% {
-    transform: translate(160%);
+    transform: translate(150%);
+    transform: scale(2)
   }
   50% {
-    transform: translate(160%, 160%);
+    transform: translate(150%, 150%);
+    transform: scale(2)
+
   }
   75% {
-    transform: translate(0, 160%);
+    transform: translate(0, 150%);
+    transform: scale(2)
+
   }
 }
 
@@ -131,7 +137,6 @@
     max-width: 22rem;
     margin: 0 auto;
   }
-
 
   .calc-form-operation {
     width: 100%;

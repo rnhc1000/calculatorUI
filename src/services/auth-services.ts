@@ -46,8 +46,10 @@ export function saveAccessToken(accessToken: string) {
 }
 
 export function getAccessToken() {
+    const accessToken = accessTokenRepository.get();
+    console.log("AccessToken", accessToken);
 
-    return accessTokenRepository.get();
+    return accessToken ?? "undefined";
 }
 
 export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
@@ -117,3 +119,4 @@ export function hasAnyRoles(roles: RoleEnum[]): boolean {
 
     return false;
 }
+
