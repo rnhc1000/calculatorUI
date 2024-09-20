@@ -1,21 +1,19 @@
-.wallet-balance {
+.wallet-list {
     display: flex;
+    flex-direction: row;
+    list-style: none;
+    color: var(--white);
+    gap: 0.05rem;
+    font-weight: 200;
     align-items: center;
-    margin: 0 auto;
-    justify-content: center;
-    color: var(--green);
-    font-size: 1.25rem;
-    position: relative;
-    top: -5px;
-    left: -5px;
+
 }
 
 .calc-wallet {
-    margin-top: 0.5rem;
+    display:flex;
     transition: width 2s;
 }
 
-.calc-wallet > img:hover {
-    width: 1.5rem;
-    zoom: normal;
+.balance{
+    color: #09f521;   
 }

@@ -13,11 +13,11 @@ import Fade from 'react-awesome-reveal';
 // import ReCAPTCHA from 'react-google-recaptcha'
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { WalletDTO } from '../../models/wallet';
+import * as walletRepository from '../../localstorage/wallet-repository';
+
 
 export default function Login() {
-
-    // console.log(import.meta.env.VITE_SITE_KEY);
-    // const recaptcha = useRef(null);
 
     const [formData, setFormData] = useState<any>({
         username: {
@@ -31,7 +31,7 @@ export default function Login() {
             validation: function (value: string) {
                 return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value.toLowerCase());
             },
-            message: "Only valid emails!",
+            message: "Valid emails only, e.g. example@example.com!",
         },
         password: {
             value: "",
@@ -40,9 +40,18 @@ export default function Login() {
             type: "password",
             required: "password",
             placeholder: "Enter your password...",
-            autoComplete: "current-password"
+            autoComplete: "current-password",
+            validation: function (value: string) {
+                return /^[a-zA-Z0-9.!@#$%&'*+/=?^_`{|}~-].{8,}/.test(value);
+            },
+            message: "Password must be larger than 7 characters!",
         }
     });
+
+    const initialState = { username: "", balance: "0.0" };
+    const [balanceData] = useState<WalletDTO>(initialState);
+
+
 
     const navigate = useNavigate();
 
@@ -70,16 +79,23 @@ export default function Login() {
 
                 authService.saveAccessToken(token);
 
-                console.log(authService.getAccessTokenPayload());
+                const accessTokenDecoded = { ...authService.getAccessTokenPayload() };
+   
+                balanceData.username = accessTokenDecoded.username ?? "nouser@found.com";
+                balanceData.balance = accessTokenDecoded.balance ?? "0.00"
+                console.log(balanceData);
+                walletRepository.save({ ...balanceData });
+
 
                 setContextTokenPayload(authService.getAccessTokenPayload());
 
                 navigate("/operations");
             })
 
-            .catch((error) => {    
+            .catch((error) => {
 
-                if (error.response.status == "401") {
+                if (error) {
+
                     withReactContent(Swal).fire({
                         title: 'Not Authorized!',
                         background: "#ecd9bb",
@@ -90,15 +106,27 @@ export default function Login() {
                         confirmButtonText: `OK!`,
                         footer: '<b>Username or password not valid!</b>'
 
-                      }).then(() => {
-                      navigate("/home");
-                      })
-                  }  
-                  
-                })
+                    }).then(() => {
+                        navigate("/home");
+                    })
 
-        }
-    
+                } else {
+
+                    withReactContent(Swal).fire({
+                        title: 'Check your network connectivity!',
+                        text: 'Try again!',
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: `OK!`,
+                    }).then(() => {
+                        navigate("/home");
+                    })
+                }
+
+            })
+
+    }
+
 
     function handleInputChange(event: any) {
         const result = forms.updateAndValidate(formData, event.target.name, event.target.value);
@@ -137,6 +165,7 @@ export default function Login() {
                                         className="calc-form-control"
                                         onTurnDirty={handleTurnDirty}
                                         onChange={handleInputChange} />
+                                    <div className="calc-form-error">{formData.password.message}</div>
                                 </div>
                             </div>
 
@@ -160,19 +189,3 @@ export default function Login() {
             <Footer /></>
     );
 }
-
-/**
- *          console.error('An error ocurred, error.error');
-                    Swal.fire({
-                      title: 'Check your network connectivity!',
-                      text: 'Try again!',
-                      icon: 'error',
-                      showCancelButton: false,
-                      confirmButtonText: `
-                   OK!
-                  `,
-                    }).then(() => {
-                    navigate("/home");
-                    })
-                }
- */

@@ -15,6 +15,7 @@ export type AccessTokenPayloadDTO = {
     iat: number,
     username: string,
     scope: string,
-    authorities: RoleEnum[] 
+    authorities: RoleEnum[],
+    balance: string 
     
 }

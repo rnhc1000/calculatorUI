@@ -5,13 +5,10 @@ import * as accessTokenRepository from '../localstorage/access-token-repository'
 import { jwtDecode } from "jwt-decode";
 
 
-
-
 export function loginRequest(loginData: CredentialsDTO) {
 
 
     const headers = {
-
       
         'Accept': 'application/json',
         "Content-Type": "application/json",
@@ -47,7 +44,6 @@ export function saveAccessToken(accessToken: string) {
 
 export function getAccessToken() {
     const accessToken = accessTokenRepository.get();
-    console.log("AccessToken", accessToken);
 
     return accessToken ?? "undefined";
 }
@@ -120,3 +116,13 @@ export function hasAnyRoles(roles: RoleEnum[]): boolean {
     return false;
 }
 
+export function getLocalBalance(): string {
+    const tokenPayload = getAccessTokenPayload();
+    
+    if (tokenPayload !== undefined) {
+
+        return tokenPayload.balance;
+    }
+
+    return "0.00";
+}

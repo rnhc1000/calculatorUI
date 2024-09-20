@@ -5,11 +5,15 @@ import { Fade } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
 import * as walletService from '../../services/wallet-services';
+import  { OUT_OF_BALANCE } from '../../utils/balance';
 import ResultInfo from '../ResultInfo';
 import { ContextWalletBalance } from '../../utils/context-wallet';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
+import * as walletRepository from '../../localstorage/wallet-repository';
+import { WalletDTO } from '../../models/wallet';
+
 
 export default function Operator() {
     /**
@@ -19,6 +23,7 @@ export default function Operator() {
         visible: false,
         result: "0.00"
     });
+
     /**
      * too many buggy libs to have an indication of an ongoing process,
      * so decided to write one simpler.. Please check the css.
@@ -48,9 +53,10 @@ export default function Operator() {
         const { name, value } = event.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
+    const initialState = { username: "", balance: "0.0" };
+    const [balanceData] = useState<WalletDTO>(initialState);
 
-
-    const { setContextWalletBalance } = useContext(ContextWalletBalance);
+    const { contextWalletBalance, setContextWalletBalance } = useContext(ContextWalletBalance);
 
     const [loading, setLoading] = useState(false);
 
@@ -59,6 +65,9 @@ export default function Operator() {
      */
     const accessTokenPayload = { ...authService.getAccessTokenPayload() };
     formData.username = accessTokenPayload.username ?? "nouser@found.com";
+
+    console.log("Context-Operations: -> ",contextWalletBalance);
+
 
     /**
      * process the inputs
@@ -89,6 +98,7 @@ export default function Operator() {
          */
         if (authService.isAcessTokenValid()) {
             const operationNumeric: string = formData.operator;
+            let check: string;
 
             if (operationNumeric != "random_string") {
 
@@ -97,23 +107,31 @@ export default function Operator() {
                 operationsService.requestOperationsNumbers({ ...formData })
 
                     .then(response => {
+                        console.log(response);
 
-                        const check = response.data.result;
-
-                        if (check == "8000863390488707.59991366095112916") {
+                        check = response.data.result;
+                        
+                        if (check == OUT_OF_BALANCE) {
 
                             setResultInfoData({ result: "No Balance Available!", visible: true });
 
                         } else {
 
+                            
+                            balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
+                            balanceData.balance = response.data.balance;
+                            walletRepository.save({...balanceData}); 
                             setResultInfoData({ result: check, visible: true });
-
+                            setTimeout(()=> {
+                                setContextWalletBalance(walletService.getWallet().balance);                                
+                            }, 7757);
+                            
+                                                   
                         }
 
                         setLoading(false);
 
-                        setContextWalletBalance(walletService.getWallet().balance);
-
+                    
                     })
 
                     .catch((error) => {
@@ -132,6 +150,7 @@ export default function Operator() {
                                 showCancelButton: false,
                                 confirmButtonText: `OK!`,
                                 footer: '<b>Credentials expired! Please, authenticate again!</b>'
+                                
                             }).then(() => {
                                 setSubmitResponseFail(true);
                                 setSubmitResponseFail(true);
@@ -161,6 +180,8 @@ export default function Operator() {
                     })
 
                 setFormData(initialFormData);
+                
+
             } else {
 
                 setLoading(true);
@@ -177,18 +198,25 @@ export default function Operator() {
 
                         const check = response.data.random;
 
-                        if (check == "8000863390488707.59991366095112916") {
+                        if (check == OUT_OF_BALANCE) {
 
                             setResultInfoData({ result: "No Balance Available!", visible: true });
 
                         } else {
 
                             setResultInfoData({ result: check, visible: true });
+                            balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
+                            balanceData.balance = response.data.balance;
+                            walletRepository.save({...balanceData}); 
+                            setResultInfoData({ result: check, visible: true });
+                            setTimeout(()=> {
+                                setContextWalletBalance(walletService.getWallet().balance);                                
+                            }, 7757);
 
                         }
 
                         setLoading(false);
-                        setContextWalletBalance(walletService.getWallet().balance);
+                        
 
                     })
                     .catch((error) => {
@@ -234,6 +262,8 @@ export default function Operator() {
                 navigate("/home");
             })
         }
+        
+
     }
 
 
