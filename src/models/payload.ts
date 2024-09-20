@@ -4,5 +4,8 @@ export interface TokenPayload {
     iat: number;
     exp: number;
     role: string;
+    balance: string;
+    iss: string;
+    sub: string;
 
 }
