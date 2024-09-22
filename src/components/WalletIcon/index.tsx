@@ -10,7 +10,6 @@ export default function WalletIcon() {
     const { contextWalletBalance, setContextWalletBalance } = useContext(ContextWalletBalance);
 
     setContextWalletBalance(walletService.getWallet().balance);
-    console.log("Context-WalletIcon: -> ", contextWalletBalance);
 
     return (
 

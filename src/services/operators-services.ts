@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from "axios";
 import { requestBackEnd } from "../utils/requests";
 import * as authService from "../services/auth-services";
 
-export function findAllRequest() {
+export function findOperatorsCost() {
 
     const headers = {
 

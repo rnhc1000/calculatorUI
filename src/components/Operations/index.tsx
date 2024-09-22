@@ -1,10 +1,11 @@
 import './styles.css';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import * as forms from '../../utils/forms';
 import { Fade } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
 import * as walletService from '../../services/wallet-services';
+import * as costOperatorService from '../../services/operators-services';
 import  { OUT_OF_BALANCE } from '../../utils/balance';
 import ResultInfo from '../ResultInfo';
 import { ContextWalletBalance } from '../../utils/context-wallet';
@@ -42,7 +43,12 @@ export default function Operator() {
      */
 
     const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
+    const initialCost = [ 
+        ["ADDITION", 0], ["SUBTRACTION", 0], ["DIVISION", 0], 
+        ["MULTIPLICATION", 0], ["SQUARE_ROOT", 0], ["RANDOM_STRING", 0]
+    ];
     const [formData, setFormData] = useState(initialFormData);
+    const [operatorCost, setOperatorCost] = useState(initialCost);
 
     const [submitResponseFail, setSubmitResponseFail] = useState(false);
 
@@ -55,19 +61,20 @@ export default function Operator() {
     };
     const initialState = { username: "", balance: "0.0" };
     const [balanceData] = useState<WalletDTO>(initialState);
-
-    const { contextWalletBalance, setContextWalletBalance } = useContext(ContextWalletBalance);
-
+    const { setContextWalletBalance } = useContext(ContextWalletBalance);
     const [loading, setLoading] = useState(false);
 
-    /**
-     * username recoverd from accessToken
-     */
+    useEffect(() => {
+        costOperatorService.findOperatorsCost()
+        .then(response => {
+            setOperatorCost(response.data);
+   
+        })
+
+    }, []);
+
     const accessTokenPayload = { ...authService.getAccessTokenPayload() };
     formData.username = accessTokenPayload.username ?? "nouser@found.com";
-
-    console.log("Context-Operations: -> ",contextWalletBalance);
-
 
     /**
      * process the inputs
@@ -107,7 +114,6 @@ export default function Operator() {
                 operationsService.requestOperationsNumbers({ ...formData })
 
                     .then(response => {
-                        console.log(response);
 
                         check = response.data.result;
                         
@@ -116,26 +122,22 @@ export default function Operator() {
                             setResultInfoData({ result: "No Balance Available!", visible: true });
 
                         } else {
-
-                            
+     
                             balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
                             balanceData.balance = response.data.balance;
                             walletRepository.save({...balanceData}); 
                             setResultInfoData({ result: check, visible: true });
                             setTimeout(()=> {
                                 setContextWalletBalance(walletService.getWallet().balance);                                
-                            }, 7757);
-                            
-                                                   
+                            }, 5000); 
+                                                                              
                         }
 
                         setLoading(false);
 
-                    
                     })
 
                     .catch((error) => {
-                        console.log(error);
 
                         if (error.status == "Unauthorized") {
 
@@ -179,8 +181,7 @@ export default function Operator() {
 
                     })
 
-                setFormData(initialFormData);
-                
+                setFormData(initialFormData);        
 
             } else {
 
@@ -211,12 +212,11 @@ export default function Operator() {
                             setResultInfoData({ result: check, visible: true });
                             setTimeout(()=> {
                                 setContextWalletBalance(walletService.getWallet().balance);                                
-                            }, 7757);
+                            }, 5000);
 
                         }
 
-                        setLoading(false);
-                        
+                        setLoading(false);                      
 
                     })
                     .catch((error) => {
@@ -261,11 +261,10 @@ export default function Operator() {
             }).then(() => {
                 navigate("/home");
             })
-        }
+        }  
         
 
     }
-
 
     return (
 
@@ -287,12 +286,12 @@ export default function Operator() {
                                 id="operator"
                             >
                                 <option label='Pick an operator...'></option>
-                                <option value="addition">Addition(&#x2b;)</option>
-                                <option value="division">Division(&divide;)</option>
-                                <option value="subtraction">Subtraction(-)</option>
-                                <option value="multiplication">Multiplication(&times;)</option>
-                                <option value="square_root">Square Root(&radic;)</option>
-                                <option value="random_string">Random String(&xi;)</option>
+                                <option value="addition">Addition(&#x2b;)&nbsp;...&nbsp;${operatorCost[0][1]}</option>
+                                <option value="division">Division(&divide;)&nbsp;...&nbsp;${operatorCost[1][1]}</option>
+                                <option value="subtraction">Subtraction(-)&nbsp;...&nbsp;${operatorCost[2][1]}</option>
+                                <option value="multiplication">Multiplication(&times;)&nbsp;...&nbsp;${operatorCost[3][1]}</option>
+                                <option value="square_root">Square Root(&radic;)&nbsp;...&nbsp;${operatorCost[4][1]}</option>
+                                <option value="random_string">Random String(&xi;)...&nbsp;${operatorCost[5][1]}</option>
                             </select>
                             <label className="label-input" htmlFor="operandOne">Operand One</label>
                             {
@@ -301,9 +300,13 @@ export default function Operator() {
                                     value={formData.operandOne}
                                     className="calc-form-operation"
                                     type="number"
+                                    min="0"
+                                    max="999999999999"
+                                    step="0.0001"
                                     name="operandOne"
                                     id="operandOne"
                                     placeholder="Enter an operand..."
+
                                 />
                             }
                             <label className="label-input" htmlFor="operandTwo">Operand Two</label>
@@ -316,6 +319,9 @@ export default function Operator() {
                                     name="operandTwo"
                                     id="operandTwo"
                                     placeholder="Enter an operand..."
+                                    min="0"
+                                    max="999999999999"
+                                    step="0.0001"
                                 />
                             }
                         </div>

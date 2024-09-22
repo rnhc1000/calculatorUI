@@ -1,6 +1,9 @@
 import './styles.css';
-import ButtonPrimary from "../ButtonPrimary";
+// import ButtonPrimary from "../ButtonPrimary";
 import { Fade } from 'react-awesome-reveal';
+import {Dots} from 'react-activity';
+import "react-activity/dist/library.css";
+
 
 type Props = {
     result: string;
@@ -8,7 +11,7 @@ type Props = {
     onDialogClose: Function;
 }
 
-export default function ResultInfo({ result, onDialogClose }: Readonly<Props>) {
+export default function ResultInfo({ result }: Readonly<Props>) {
     return (
         <Fade>
             <div className="calc-dialog-background">
@@ -16,9 +19,13 @@ export default function ResultInfo({ result, onDialogClose }: Readonly<Props>) {
                     <h2>Result:</h2>
                     <br></br>
                     <h3>{result}</h3>
-                    <div className="calc-dialog-btn-container" onClick={() => onDialogClose()} role="button">
+                    {/* <div className="calc-dialog-btn-container" onClick={() => onDialogClose()} role="button">
                         <ButtonPrimary text="Done!" />
-                    </div>
+                    </div> */}
+                    <br></br>
+
+                    <Dots color="var(--primary)" size={48} speed={1} animating={true} />
+
                 </div>
             </div>
         </Fade>
