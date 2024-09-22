@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
 import CountUp from 'react-countup';
+import Visitors from '../Visitors';
 
 export default function Footer() {
 
@@ -14,6 +15,7 @@ export default function Footer() {
                     <p>All rights reserved - &nbsp;
                         <CountUp separator="" delay={0} start={1957} end={2024} /></p>
                 </Link>
+                <Visitors />
             </div>
 
         </footer>

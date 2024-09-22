@@ -9,8 +9,6 @@ export default function HeaderUser() {
 
     const location = useLocation();
 
-   
-
     return (
         <header>
             <nav id="navbar" className="nav-main">

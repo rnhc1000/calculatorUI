@@ -5,6 +5,9 @@
   text-align: center;
 }
 
+.container-home > h1 {
+  margin-top: 1.75rem;
+}
 .underlineHover:after {
   display: flex;
   left: 0;
@@ -92,6 +95,10 @@
     width: 360px;
     height: 250px;
     max-width: 95%;
+  }
+
+  .container-home > h1 {
+    margin-top: 5rem;
   }
 
 }

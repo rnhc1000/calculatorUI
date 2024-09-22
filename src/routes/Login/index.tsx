@@ -50,13 +50,8 @@ export default function Login() {
 
     const initialState = { username: "", balance: "0.0" };
     const [balanceData] = useState<WalletDTO>(initialState);
-
-
-
     const navigate = useNavigate();
-
     const [submitResponseFail, setSubmitResponseFail] = useState(false);
-
     const { setContextTokenPayload } = useContext(ContextToken);
 
     function handleSubmit(event: any) {
@@ -83,9 +78,7 @@ export default function Login() {
    
                 balanceData.username = accessTokenDecoded.username ?? "nouser@found.com";
                 balanceData.balance = accessTokenDecoded.balance ?? "0.00"
-                console.log(balanceData);
                 walletRepository.save({ ...balanceData });
-
 
                 setContextTokenPayload(authService.getAccessTokenPayload());
 
@@ -127,7 +120,6 @@ export default function Login() {
 
     }
 
-
     function handleInputChange(event: any) {
         const result = forms.updateAndValidate(formData, event.target.name, event.target.value);
         setFormData(result);
@@ -137,7 +129,6 @@ export default function Login() {
         const newFormData = forms.dirtyAndValidate(formData, name);
         setFormData(newFormData);
     }
-
 
     return (
         <>

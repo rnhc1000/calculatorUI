@@ -74,3 +74,4 @@ export function requestOperationsRandom(formData: RandomDto) {
 
     return requestBackEnd(config);
 }
+
