@@ -37,7 +37,7 @@
     "react-awesome-reveal": "^4.2.14",
     "react-bootstrap": "^2.10.4",
     "react-countup": "^6.5.3",
-    "react-data-table": "^0.1.0",
+    "react-data-table": "^1.0.2",
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18.3.1",
     "react-google-recaptcha": "^3.1.0",
@@ -45,7 +45,7 @@
     "react-select": "^5.8.0",
     "react-spinners": "^0.14.1",
     "styled-components": "^6.1.13",
-    "sweetalert2": "^11.13.3",
+    "sweetalert2": "^11.6.13",
     "sweetalert2-react-content": "^5.0.7",
     "typescript-cookie": "^1.0.6"
   },

@@ -44,7 +44,7 @@ export default function Login() {
             validation: function (value: string) {
                 return /^[a-zA-Z0-9.!@#$%&'*+/=?^_`{|}~-].{8,}/.test(value);
             },
-            message: "Password must be larger than 7 characters!",
+            message: "Password must be larger than 8 characters!",
         }
     });
 
@@ -87,6 +87,8 @@ export default function Login() {
 
             .catch((error) => {
 
+                console.log(error);
+
                 if (error) {
 
                     withReactContent(Swal).fire({
@@ -104,7 +106,7 @@ export default function Login() {
                     })
 
                 } else {
-
+                    console.log(error);
                     withReactContent(Swal).fire({
                         title: 'Check your network connectivity!',
                         text: 'Try again!',
