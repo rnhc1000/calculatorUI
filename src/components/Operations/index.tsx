@@ -14,7 +14,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
 import * as walletRepository from '../../localstorage/wallet-repository';
 import { WalletDTO } from '../../models/wallet';
-
+import  square from '../../assets/svg/square-root-svgrepo-com.svg';
 
 export default function Operator() {
     /**
@@ -290,7 +290,7 @@ export default function Operator() {
                                 <option value="division">Division(&divide;)&nbsp;...&nbsp;${operatorCost[1][1]}</option>
                                 <option value="subtraction">Subtraction(-)&nbsp;...&nbsp;${operatorCost[2][1]}</option>
                                 <option value="multiplication">Multiplication(&times;)&nbsp;...&nbsp;${operatorCost[3][1]}</option>
-                                <option value="square_root">Square Root(&radic;)&nbsp;...&nbsp;${operatorCost[4][1]}</option>
+                                <option value="square_root">Square Root<img src={square} alt="square-root"></img>(&radic;)&nbsp;...&nbsp;${operatorCost[4][1]}</option>
                                 <option value="random_string">Random String(&xi;)...&nbsp;${operatorCost[5][1]}</option>
                             </select>
                             <label className="label-input" htmlFor="operandOne">Operand One</label>
@@ -300,9 +300,9 @@ export default function Operator() {
                                     value={formData.operandOne}
                                     className="calc-form-operation"
                                     type="number"
-                                    min="0"
-                                    max="999999999999"
-                                    step="0.0001"
+                                    min="-999999999999999"
+                                    max="999999999999999"
+                                    step="0.000001"
                                     name="operandOne"
                                     id="operandOne"
                                     placeholder="Enter an operand..."
@@ -319,9 +319,9 @@ export default function Operator() {
                                     name="operandTwo"
                                     id="operandTwo"
                                     placeholder="Enter an operand..."
-                                    min="0"
-                                    max="999999999999"
-                                    step="0.0001"
+                                    min="-999999999999999"
+                                    max="999999999999999"
+                                    step="0.000001"
                                 />
                             }
                         </div>
