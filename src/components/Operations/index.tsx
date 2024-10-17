@@ -6,7 +6,7 @@ import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
 import * as walletService from '../../services/wallet-services';
 import * as costOperatorService from '../../services/operators-services';
-import  { OUT_OF_BALANCE } from '../../utils/balance';
+import { OUT_OF_BALANCE } from '../../utils/balance';
 import ResultInfo from '../ResultInfo';
 import { ContextWalletBalance } from '../../utils/context-wallet';
 import Swal from 'sweetalert2';
@@ -14,7 +14,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
 import * as walletRepository from '../../localstorage/wallet-repository';
 import { WalletDTO } from '../../models/wallet';
-import  square from '../../assets/svg/square-root-svgrepo-com.svg';
+import square from '../../assets/svg/square-root-svgrepo-com.svg';
 
 export default function Operator() {
     /**
@@ -43,8 +43,8 @@ export default function Operator() {
      */
 
     const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
-    const initialCost = [ 
-        ["ADDITION", 0], ["SUBTRACTION", 0], ["DIVISION", 0], 
+    const initialCost = [
+        ["ADDITION", 0], ["SUBTRACTION", 0], ["DIVISION", 0],
         ["MULTIPLICATION", 0], ["SQUARE_ROOT", 0], ["RANDOM_STRING", 0]
     ];
     const [formData, setFormData] = useState(initialFormData);
@@ -64,11 +64,14 @@ export default function Operator() {
     const { setContextWalletBalance } = useContext(ContextWalletBalance);
     const [loading, setLoading] = useState(false);
 
+    /*
+    * load operations costs from db
+    */
     useEffect(() => {
         costOperatorService.findOperatorsCost()
-        .then(response => {
-            setOperatorCost(response.data);
-        })
+            .then(response => {
+                setOperatorCost(response.data);
+            })
 
     }, []);
 
@@ -113,21 +116,21 @@ export default function Operator() {
                     .then(response => {
 
                         check = response.data.result;
-                        
+
                         if (check == OUT_OF_BALANCE) {
 
                             setResultInfoData({ result: "No Balance Available!", visible: true });
 
                         } else {
-     
+
                             balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
                             balanceData.balance = response.data.balance;
-                            walletRepository.save({...balanceData}); 
+                            walletRepository.save({ ...balanceData });
                             setResultInfoData({ result: check, visible: true });
-                            setTimeout(()=> {
-                                setContextWalletBalance(walletService.getWallet().balance);                                
-                            }, 8000); 
-                                                                              
+                            setTimeout(() => {
+                                setContextWalletBalance(walletService.getWallet().balance);
+                            }, 7557);
+
                         }
 
                         setLoading(false);
@@ -150,7 +153,7 @@ export default function Operator() {
                                 showCancelButton: false,
                                 confirmButtonText: `OK!`,
                                 footer: '<b>Credentials expired! Please, authenticate again!</b>'
-                                
+
                             }).then(() => {
                                 setSubmitResponseFail(true);
                                 setSubmitResponseFail(true);
@@ -179,7 +182,7 @@ export default function Operator() {
 
                     })
 
-                setFormData(initialFormData);        
+                setFormData(initialFormData);
 
             } else {
 
@@ -206,15 +209,15 @@ export default function Operator() {
                             setResultInfoData({ result: check, visible: true });
                             balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
                             balanceData.balance = response.data.balance;
-                            walletRepository.save({...balanceData}); 
+                            walletRepository.save({ ...balanceData });
                             setResultInfoData({ result: check, visible: true });
-                            setTimeout(()=> {
-                                setContextWalletBalance(walletService.getWallet().balance);                                
-                            }, 8000);
+                            setTimeout(() => {
+                                setContextWalletBalance(walletService.getWallet().balance);
+                            }, 7557);
 
                         }
 
-                        setLoading(false);                      
+                        setLoading(false);
 
                     })
                     .catch((error) => {
@@ -243,7 +246,7 @@ export default function Operator() {
                 setFormData(initialFormData);
 
             }
-            
+
         } else {
             authService.logout();
             walletService.clearWallet();
@@ -259,8 +262,8 @@ export default function Operator() {
             }).then(() => {
                 navigate("/home");
             })
-        }  
-        
+        }
+
 
     }
 
@@ -288,7 +291,7 @@ export default function Operator() {
                                 <option value="subtraction">Subtraction(-)&nbsp;...&nbsp;${operatorCost[1][1]}</option>
                                 <option value="multiplication">Multiplication(&times;)&nbsp;...&nbsp;${operatorCost[3][1]}</option>
                                 <option value="division">Division(&divide;)&nbsp;...&nbsp;${operatorCost[2][1]}</option>
-                                <option value="square_root">Square Root<img src={square} alt="square-root"></img>(&radic;)&nbsp;...&nbsp;${operatorCost[4][1]}</option>
+                                <option value="square_root">Square Root(&radic;)&nbsp;...&nbsp;${operatorCost[4][1]}</option>
                                 <option value="random_string">Random String(&xi;)...&nbsp;${operatorCost[5][1]}</option>
                             </select>
                             <label className="label-input" htmlFor="operandOne">Operand One</label>
