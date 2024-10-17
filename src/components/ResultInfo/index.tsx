@@ -24,7 +24,7 @@ export default function ResultInfo({ result }: Readonly<Props>) {
                     </div> */}
                     <br></br>
 
-                    <Dots color="var(--primary)" size={48} speed={1} animating={true} />
+                    <Dots color="var(--result)" size={48} speed={1} animating={true} />
 
                 </div>
             </div>

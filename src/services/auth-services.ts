@@ -7,7 +7,6 @@ import { jwtDecode } from "jwt-decode";
 
 export function loginRequest(loginData: CredentialsDTO) {
 
-
     const headers = {
       
         'Accept': 'application/json',
@@ -43,6 +42,7 @@ export function saveAccessToken(accessToken: string) {
 }
 
 export function getAccessToken() {
+    
     const accessToken = accessTokenRepository.get();
 
     return accessToken ?? "undefined";

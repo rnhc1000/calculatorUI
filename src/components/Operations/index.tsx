@@ -68,7 +68,6 @@ export default function Operator() {
         costOperatorService.findOperatorsCost()
         .then(response => {
             setOperatorCost(response.data);
-   
         })
 
     }, []);
@@ -87,9 +86,7 @@ export default function Operator() {
     const handleSubmit = (event: { preventDefault: () => void; }) => {
 
         event.preventDefault();
-
         setSubmitResponseFail(false);
-
         const formDataValidated = forms.dirtyAndValidateAll(formData);
 
         if (forms.hasAnyInvalid(formDataValidated)) {
@@ -129,7 +126,7 @@ export default function Operator() {
                             setResultInfoData({ result: check, visible: true });
                             setTimeout(()=> {
                                 setContextWalletBalance(walletService.getWallet().balance);                                
-                            }, 5000); 
+                            }, 8000); 
                                                                               
                         }
 
@@ -138,8 +135,9 @@ export default function Operator() {
                     })
 
                     .catch((error) => {
+                        console.log(error);
 
-                        if (error.status == "Unauthorized") {
+                        if (error.response.data["exception: "].message == "Not Authorized") {
 
                             authService.logout();
                             walletService.clearWallet();
@@ -160,13 +158,13 @@ export default function Operator() {
                                 navigate("/home");
                             })
 
-                        } else if (error.status == "Illegal Math Operation!") {
+                        } else if (error.response.data["exception: "].message == "Arithmetic Exception") {
 
                             withReactContent(Swal).fire({
                                 title: 'Not Allowed!',
                                 background: "#ecd9bb",
                                 text: 'Arithmetic Operation Not Allowed!',
-                                icon: 'warning',
+                                icon: 'error',
                                 confirmButtonColor: "#fa9c05",
                                 showCancelButton: false,
                                 confirmButtonText: `OK!`,
@@ -212,7 +210,7 @@ export default function Operator() {
                             setResultInfoData({ result: check, visible: true });
                             setTimeout(()=> {
                                 setContextWalletBalance(walletService.getWallet().balance);                                
-                            }, 5000);
+                            }, 8000);
 
                         }
 
@@ -287,9 +285,9 @@ export default function Operator() {
                             >
                                 <option label='Pick an operator...'></option>
                                 <option value="addition">Addition(&#x2b;)&nbsp;...&nbsp;${operatorCost[0][1]}</option>
-                                <option value="division">Division(&divide;)&nbsp;...&nbsp;${operatorCost[1][1]}</option>
-                                <option value="subtraction">Subtraction(-)&nbsp;...&nbsp;${operatorCost[2][1]}</option>
+                                <option value="subtraction">Subtraction(-)&nbsp;...&nbsp;${operatorCost[1][1]}</option>
                                 <option value="multiplication">Multiplication(&times;)&nbsp;...&nbsp;${operatorCost[3][1]}</option>
+                                <option value="division">Division(&divide;)&nbsp;...&nbsp;${operatorCost[2][1]}</option>
                                 <option value="square_root">Square Root<img src={square} alt="square-root"></img>(&radic;)&nbsp;...&nbsp;${operatorCost[4][1]}</option>
                                 <option value="random_string">Random String(&xi;)...&nbsp;${operatorCost[5][1]}</option>
                             </select>
