@@ -9,9 +9,11 @@
     --white: #f8f8f8;
 
     --green:  #09f521;
+
+    --result: #fa9c05; 
     
     --calc-color-bg-primary: #e8e8e8;
-    --calc-color-bg-secondary: #00b7ff;
+    --calc-color-bg-secondary: #0044ff;
     --calc-color-bg-tertiary: #636363;
     --calc-color-bg-quaternary: #0caf1d;
 
@@ -548,20 +550,20 @@ a:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(152, 155, 158, 0.5);
+    background-color: #1a2f57;
     padding: 20px;
 }
 
 .calc-dialog-box h2 {
     font-size: 2.5rem;
-    color: var(--primary);
+    color: var(--result);
     margin: 1rem;
     font-weight: 500;
 }
 
 .calc-dialog-box h3 {
     font-size: 3.5rem;
-    color: var(--green);
+    color: var(--result);
     margin: 1rem;
     font-weight: 500;
     text-align: center;

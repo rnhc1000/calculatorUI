@@ -17,7 +17,51 @@ export function requestBackEnd(config: AxiosRequestConfig) {
     return axios({ ...config, baseURL: BASE_URL, headers })
 }
 
-axios.interceptors.request.use(
+axios.interceptors.request.use( function (config) {
+
+
+    return config;
+}, function(error){
+
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use( function (response){
+
+    return response;
+}, function(error) {
+
+
+    return Promise.reject(error);
+}
+
+    // response => response,
+    // error => {
+
+    //     if(error.response ) {
+    //         // console.log(error.response.data);
+    //         console.log(error.message);
+    //         console.log(error.response.status);
+    //         console.log(error.response.headers);
+
+
+    //         return Promise.reject(error.response.data);
+    //     }
+    //     console.log(error);
+    //     console.log(error.message);
+
+    //     // console.log(error.response.data);
+    //     console.log(error.response.status);
+    //     console.log(error.response.headers);
+
+    //     return Promise.reject(error);
+
+    // }
+);
+
+
+/**
+ * axios.interceptors.request.use(
 
     config => config,
 
@@ -25,8 +69,7 @@ axios.interceptors.request.use(
         return error.request;
     }
 );
-
-axios.interceptors.response.use(
+ * axios.interceptors.response.use(
 
     response => response,
     error => {
@@ -51,8 +94,6 @@ axios.interceptors.response.use(
 
     }
 );
-
-/**
  * Using a QueryBuilder in Java typically involves creating a class that helps you build SQL or HQL queries in a fluent, programmatic style. Below are steps and a simple example of how to use a QueryBuilder pattern in Java:
 
 Steps to Create a Simple QueryBuilder

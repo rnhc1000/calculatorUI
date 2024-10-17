@@ -21,36 +21,27 @@ export default function HeaderUser() {
                         <WalletIcon />
                     </li>
 
-                    {location.pathname === "/operations" &&
+                    {
+                        location.pathname === "/operations" 
+                        
+                        &&
 
-                        <li>
-                            <Link to='/records'>Records</Link>
-                        </li>
+                        <li><Link to='/records'>Records</Link></li>
                         
                     }
 
 
-                    {location.pathname === "/records" 
+                    {
+                        location.pathname === "/records" 
 
-                    ?
+                        ? 
 
-                    (
-
-                        <li>
-                            <Link to='/operations'>Operations</Link>
-                        </li>
-
-                    )
-
-                    :
+                        (<li><Link to='/operations'>Operations</Link></li>)
                     
-                    (
 
-                        <li>
-                            <Link to='/home'>Logout</Link>
-                        </li>
+                        : 
 
-                    )
+                        (<li><Link to='/home'>Logout</Link></li>)
                     }
 
                 </ul>

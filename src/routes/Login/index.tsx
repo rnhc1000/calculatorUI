@@ -68,7 +68,7 @@ export default function Login() {
 
         authService.loginRequest(forms.toValues(formData))
 
-            .then(response => {
+            .then(function (response) {
 
                 const token = response.data.accessToken
 
@@ -85,11 +85,11 @@ export default function Login() {
                 navigate("/operations");
             })
 
-            .catch((error) => {
+            .catch(function(error) {
 
-                console.log(error);
+                console.log(error.response.data["message: "]);
 
-                if (error) {
+                if (error.response.data["message: "] == "Access Denied") {
 
                     withReactContent(Swal).fire({
                         title: 'Not Authorized!',
@@ -108,8 +108,8 @@ export default function Login() {
                 } else {
                     console.log(error);
                     withReactContent(Swal).fire({
-                        title: 'Check your network connectivity!',
-                        text: 'Try again!',
+                        title: 'System not available at this time!',
+                        text: 'Try again later!',
                         icon: 'error',
                         showCancelButton: false,
                         confirmButtonText: `OK!`,
