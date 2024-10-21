@@ -6,7 +6,6 @@ import * as operationsService from '../../services/operation-services';
 import * as authService from '../../services/auth-services';
 import * as walletService from '../../services/wallet-services';
 import * as costOperatorService from '../../services/operators-services';
-import { OUT_OF_BALANCE } from '../../utils/balance';
 import ResultInfo from '../ResultInfo';
 import { ContextWalletBalance } from '../../utils/context-wallet';
 import Swal from 'sweetalert2';
@@ -14,7 +13,6 @@ import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
 import * as walletRepository from '../../localstorage/wallet-repository';
 import { WalletDTO } from '../../models/wallet';
-import square from '../../assets/svg/square-root-svgrepo-com.svg';
 
 export default function Operator() {
     /**
@@ -116,22 +114,13 @@ export default function Operator() {
                     .then(response => {
 
                         check = response.data.result;
-
-                        if (check == OUT_OF_BALANCE) {
-
-                            setResultInfoData({ result: "No Balance Available!", visible: true });
-
-                        } else {
-
-                            balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
-                            balanceData.balance = response.data.balance;
-                            walletRepository.save({ ...balanceData });
-                            setResultInfoData({ result: check, visible: true });
-                            setTimeout(() => {
-                                setContextWalletBalance(walletService.getWallet().balance);
-                            }, 7557);
-
-                        }
+                        balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
+                        balanceData.balance = response.data.balance;
+                        walletRepository.save({ ...balanceData });
+                        setResultInfoData({ result: check, visible: true });
+                        setTimeout(() => {
+                            setContextWalletBalance(walletService.getWallet().balance);
+                        }, 6000);
 
                         setLoading(false);
 
@@ -140,7 +129,7 @@ export default function Operator() {
                     .catch((error) => {
                         console.log(error);
 
-                        if (error.response.data["exception: "].message == "Not Authorized") {
+                        if (error.response.data.message == "Not Authorized") {
 
                             authService.logout();
                             walletService.clearWallet();
@@ -161,7 +150,7 @@ export default function Operator() {
                                 navigate("/home");
                             })
 
-                        } else if (error.response.data["exception: "].message == "Arithmetic Exception") {
+                        } else if (error.response.data.message == "Illegal math operation!") {
 
                             withReactContent(Swal).fire({
                                 title: 'Not Allowed!',
@@ -172,6 +161,23 @@ export default function Operator() {
                                 showCancelButton: false,
                                 confirmButtonText: `OK!`,
                                 footer: '<b>Do maths with valid operands!</b>'
+                            }).then(() => {
+                                setSubmitResponseFail(true);
+                                setSubmitResponseFail(true);
+                                setLoading(false);
+                                navigate("/operations");
+                            })
+                        } else if (error.response.data.message == "Not enough funds to keep doing maths!!") {
+
+                            withReactContent(Swal).fire({
+                                title: 'Out of Balance!',
+                                background: "#ecd9bb",
+                                text: 'Not enough funds to do maths!!',
+                                icon: 'error',
+                                confirmButtonColor: "#fa9c05",
+                                showCancelButton: false,
+                                confirmButtonText: `OK!`,
+                                footer: '<b>Ask admin to credit your wallet!</b>'
                             }).then(() => {
                                 setSubmitResponseFail(true);
                                 setSubmitResponseFail(true);
@@ -200,22 +206,14 @@ export default function Operator() {
 
                         const check = response.data.random;
 
-                        if (check == OUT_OF_BALANCE) {
-
-                            setResultInfoData({ result: "No Balance Available!", visible: true });
-
-                        } else {
-
-                            setResultInfoData({ result: check, visible: true });
-                            balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
-                            balanceData.balance = response.data.balance;
-                            walletRepository.save({ ...balanceData });
-                            setResultInfoData({ result: check, visible: true });
-                            setTimeout(() => {
+                        setResultInfoData({ result: check, visible: true });
+                        balanceData.username = accessTokenPayload.username ?? "nouser@found.com";
+                        balanceData.balance = response.data.balance;
+                        walletRepository.save({ ...balanceData });
+                        setResultInfoData({ result: check, visible: true });
+                        setTimeout(() => {
                                 setContextWalletBalance(walletService.getWallet().balance);
-                            }, 7557);
-
-                        }
+                            }, 6000);                      
 
                         setLoading(false);
 
@@ -236,6 +234,23 @@ export default function Operator() {
                             }).then(() => {
                                 navigate("/home");
                             })
+                        } else if (error.response.data.message == "Not enough funds to keep doing maths!!") {
+
+                            withReactContent(Swal).fire({
+                                title: 'Out of Balance!',
+                                background: "#ecd9bb",
+                                text: 'Not enough funds to do maths!!',
+                                icon: 'error',
+                                confirmButtonColor: "#fa9c05",
+                                showCancelButton: false,
+                                confirmButtonText: `OK!`,
+                                footer: '<b>Ask admin to credit your wallet!</b>'
+                            }).then(() => {
+                                setSubmitResponseFail(true);
+                                setSubmitResponseFail(true);
+                                setLoading(false);
+                                navigate("/operations");
+                            })
                         }
 
                         setSubmitResponseFail(true);
@@ -244,7 +259,6 @@ export default function Operator() {
                     })
 
                 setFormData(initialFormData);
-
             }
 
         } else {

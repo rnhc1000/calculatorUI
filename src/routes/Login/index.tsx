@@ -89,7 +89,7 @@ export default function Login() {
 
                 console.log(error.response.data["message: "]);
 
-                if (error.response.data["message: "] == "Access Denied") {
+                if (error.response.data.message == "Access denied") {
 
                     withReactContent(Swal).fire({
                         title: 'Not Authorized!',
