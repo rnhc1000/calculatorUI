@@ -87,9 +87,20 @@ export default function Login() {
 
             .catch(function(error) {
 
-                console.log(error.response.data["message: "]);
+                console.log(error.message);
 
-                if (error.response.data.message == "Access denied") {
+                if (error.message == "Network Error") {
+                    console.log(error);
+                    withReactContent(Swal).fire({
+                        title: 'System not available at this time!',
+                        text: 'Try again later!',
+                        icon: 'error',
+                        showCancelButton: false,
+                        confirmButtonText: `OK!`,
+                    }).then(() => {
+                        navigate("/home");
+                    })
+                } else if (error.response.data.message == "Access denied") {
 
                     withReactContent(Swal).fire({
                         title: 'Not Authorized!',
@@ -103,20 +114,7 @@ export default function Login() {
 
                     }).then(() => {
                         navigate("/home");
-                    })
-
-                } else {
-                    console.log(error);
-                    withReactContent(Swal).fire({
-                        title: 'System not available at this time!',
-                        text: 'Try again later!',
-                        icon: 'error',
-                        showCancelButton: false,
-                        confirmButtonText: `OK!`,
-                    }).then(() => {
-                        navigate("/home");
-                    })
-                }
+                    })}
 
             })
 

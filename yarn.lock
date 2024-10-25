@@ -920,24 +920,24 @@ acorn-jsx@^5.3.2:
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.12.1.tgz"
   integrity sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==
 
-ag-charts-types@10.1.0:
-  version "10.1.0"
-  resolved "https://registry.npmjs.org/ag-charts-types/-/ag-charts-types-10.1.0.tgz"
-  integrity sha512-pk9ft8hbgTXJ/thI/SEUR1BoauNplYExpcHh7tMOqVikoDsta1O15TB1ZL4XWnl4TPIzROBmONKsz7d8a2HBuQ==
+ag-charts-types@10.3.0:
+  version "10.3.0"
+  resolved "https://registry.npmjs.org/ag-charts-types/-/ag-charts-types-10.3.0.tgz"
+  integrity sha512-6nIwJmp/9JMMo4SsWZPcaYqlhN0Tzg3SmY2v+NXmfO4jjBSp8vJs3bDpPTpNtzutrmAMimGzQV31YSwq+K3bRQ==
 
-ag-grid-community@32.1.0:
-  version "32.1.0"
-  resolved "https://registry.npmjs.org/ag-grid-community/-/ag-grid-community-32.1.0.tgz"
-  integrity sha512-RVvkjRH61nuCXwIqTKQPqNbKR+8cGBKw7S1qmmMXsy0pCBAJaQn4kL3v31hKHxDtV4bPscBXLFKGnKzHuss0GQ==
+ag-grid-community@^32.3.0, ag-grid-community@32.3.0:
+  version "32.3.0"
+  resolved "https://registry.npmjs.org/ag-grid-community/-/ag-grid-community-32.3.0.tgz"
+  integrity sha512-z57mwC4Bk7dWGdi9A5sCzY82i5zBO/j4Q11KC/5Uur5py6VKk/vzMfJXxR1kuCCht+Xss88U5cRrywxmXJf0rw==
   dependencies:
-    ag-charts-types "10.1.0"
+    ag-charts-types "10.3.0"
 
-ag-grid-react@^32.1.0:
-  version "32.1.0"
-  resolved "https://registry.npmjs.org/ag-grid-react/-/ag-grid-react-32.1.0.tgz"
-  integrity sha512-GDbtvU3aicSajWXWxvQio5ZaPqJDx2jzgRBKQf1RF1IVzL+XATDmLFNuMND0+wJ/VW/xUjBFjiq9W1fjXg/DCA==
+ag-grid-react@^32.3.0:
+  version "32.3.0"
+  resolved "https://registry.npmjs.org/ag-grid-react/-/ag-grid-react-32.3.0.tgz"
+  integrity sha512-NtkoGM340/hJJZqSFR73LJCTfsAnqYEqwrs1k21Vl0R6+ZDrmS3hJycBSLB7vpsKpmfRnAGbDhdGa1ZhVbi3EQ==
   dependencies:
-    ag-grid-community "32.1.0"
+    ag-grid-community "32.3.0"
     prop-types "^15.8.1"
 
 ajv@^6.12.4:
@@ -1512,11 +1512,6 @@ flatted@^3.2.9:
   version "3.3.1"
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.3.1.tgz"
   integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
-
-fsevents@~2.3.2, fsevents@~2.3.3:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"

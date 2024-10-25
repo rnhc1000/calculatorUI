@@ -3,10 +3,16 @@
 import './styles.css';
 import {
     ColDef,
+    ColGroupDef,
     GridApi,
+    GridOptions,
     ModuleRegistry,
+    RowNodeTransaction,
+    RowSelectionOptions,
+    createGrid,
     ValueFormatterParams,
     ClientSideRowModelModule,
+    GridReadyEvent,
     GetRowIdParams
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
@@ -22,18 +28,8 @@ export function RecordData() {
 
 
     const gridApiRef = useRef<AgGridReact>(null); 
+    const [gridApi, setGridApi] = useState(null);
     const [rowData, setRowData] = useState<IRow[]>([]);
-
-
-    
-    const onGridReady = useCallback(() => {
-
-        recordsService.findRecords(0, 1000, 0, 1000)
-          .then(response => {
-            setRowData(response.data.records);
-        })
-
-    }, []);
 
     const dateFormatter = (params: ValueFormatterParams): string => {
         return new Date(params.value).toLocaleDateString("en-us", {
@@ -46,7 +42,70 @@ export function RecordData() {
 
         });
     };
+    
+    const onGridReady = useCallback(() => {
 
+        recordsService.findRecords(0, 1000, 0, 1000)
+          .then(response => {
+            setRowData(response.data.records);
+
+        })
+
+    }, []);
+
+
+    const getRowId = useCallback(function (params: GetRowIdParams) {
+        return params.data.symbol;
+    }, []);
+
+    const reverseItems = useCallback(() => {
+        const reversedData = rowData.slice().reverse();
+        setRowData(reversedData);
+    }, [rowData]);
+
+    function setGroupingEnabled(enabled: boolean, api: GridApi) {
+        if (enabled) {
+            api.applyColumnState({
+                state: [
+                    { colId: 'group', rowGroup: true, hide: true },
+                    { colId: 'symbol', hide: true },
+                ],
+            });
+        } else {
+            api.applyColumnState({
+                state: [
+                    { colId: 'group', rowGroup: false, hide: false },
+                    { colId: 'symbol', hide: false },
+                ],
+            });
+        }
+        setItemVisible('groupingOn', !enabled);
+        setItemVisible('groupingOff', enabled);
+    }
+
+    function setItemVisible(id: string, visible: boolean) {
+        const element = document.querySelector('#' + id) as any;
+        element.style.display = visible ? 'inline' : 'none';
+    }
+
+    const gridOptions = {
+        pagination: true,
+      }
+    
+    //   const gridRef = useRef<AgGridReact>(null);
+
+    //   const onGridReady = (params: { api: { resetRowHeights: () => void; }; }) => {
+    //     params.api.resetRowHeights();
+    //     gridApiRef.current = params.api // <= assigned gridApi value on Grid ready
+    // }
+
+    const rowSelection = useMemo(() => {
+        return {
+            mode: "single",
+        };
+    }, [])
+
+ 
 
     const [colDefs] = useState<ColDef[]>([
 
@@ -110,22 +169,34 @@ export function RecordData() {
 
 
     ]);
-     
+
+    console.log(colDefs);
+
+    // if (OK) {
+
+    //     recordsService.findRecords(0, 1000, 0, 1000)
+
+    //         .then(response => {
+
+    //             setRowData(response.data.records);
+    //             setOK(false);
+
+    //         })
+
+    //         .catch(() => {
+
+    //         })
+
+    // }
+
+      
+
     const defaultColDef = useMemo<ColDef>(() => {
         return {
             filter: true,
             editable: true,
         };
     }, []);
-
-    const getRowId = useCallback(function (params: GetRowIdParams) {
-        return params.data.symbol;
-    }, []);
-
-    const reverseItems = useCallback(() => {
-        const reversedData = rowData.slice().reverse();
-        setRowData(reversedData);
-    }, [rowData]);
 
     const removeSelected = useCallback(() => {
         const selectedRowNodes = gridApiRef.current!.api.getSelectedNodes();
@@ -145,16 +216,16 @@ export function RecordData() {
                     "ag-theme-quartz-dark"
                 }
 
-                style={{ width: "100%", height: "75vh" }}
+                style={{ width: "100%", height: "77vh" }}
             >
-                <div style={{ marginBottom: '2px', minHeight: '1rem', backgroundColor: 'none' }}>
-                    <button onClick={reverseItems}>Reverse</button>
+                <div style={{ marginBottom: '5px', minHeight: '30px', backgroundColor: 'none' }}>
+                    {/* <button onClick={reverseItems}>Reverse</button> */}
                     <button style={{ backgroundColor: 'blue' }} onClick={removeSelected}>Remove</button>
                 </div>
 
                 <AgGridReact
+                    // rowSelection={rowSelection}
                     rowData={rowData}
-                    rowSelection={'single'}
                     columnDefs={colDefs}
                     defaultColDef={defaultColDef}
                     pagination={true}
@@ -170,3 +241,10 @@ export function RecordData() {
     );
 };
 
+
+
+
+<AgGridReact
+  // ... other grid options
+  rowSelection="multiple"
+/>

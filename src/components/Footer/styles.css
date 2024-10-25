@@ -9,7 +9,7 @@
     justify-content: center;
     border-top: 1px solid var(--primary);
     padding: 1rem;
-    margin: 0.5rem auto;
+    margin: 0.025rem auto;
     color: var(--white);
     font-size: 0.75rem;
     font-weight: 100;
@@ -20,7 +20,7 @@
     margin: auto;
     padding: auto;
     font-size: 1rem;
-    color: var(--primary);
+    color: var(--white);
 }
 
   @media (max-width: 640px) {
