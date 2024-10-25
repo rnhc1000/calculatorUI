@@ -57,14 +57,36 @@ export default function Operator() {
         const { name, value } = event.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
+
     const initialState = { username: "", balance: "0.0" };
     const [balanceData] = useState<WalletDTO>(initialState);
     const { setContextWalletBalance } = useContext(ContextWalletBalance);
     const [loading, setLoading] = useState(false);
+    const [input, setInput] = useState(false);
+
+
+    const add = "Addition(+) -> $"  + operatorCost[0][1];
+    const sub = "Subtraction (-) -> $" + operatorCost[1][1];
+    const mul = "Multiplication(x) -> $" + operatorCost[3][1];
+    const div = "Division(/) -> $" + operatorCost[2][1];
+    const sqr = "Square Root(v) -> $" + operatorCost[4][1];
+    const rnd = "Random String(s) -> $" + operatorCost[5][1];
+
+    const operationsOptions = [
+        { label: add, value: "addition" },
+        { label: sub, value: "subtraction" },
+        { label: mul, value: "multiplication" },
+        { label: div, value: "division" },
+        { label: sqr, value:"square_root" },
+        { label: rnd, value: "random_string"}
+    ];
+
 
     /*
     * load operations costs from db
     */
+
+
     useEffect(() => {
         costOperatorService.findOperatorsCost()
             .then(response => {
@@ -75,6 +97,22 @@ export default function Operator() {
 
     const accessTokenPayload = { ...authService.getAccessTokenPayload() };
     formData.username = accessTokenPayload.username ?? "nouser@found.com";
+
+    useEffect(() => {
+
+        console.log(formData.operator);
+        
+        if (formData.operator=="square_root") {
+            console.log("square_root - true");
+            setInput(false);
+            console.log(input);
+        } else {
+            setInput(true);
+        }
+        
+        console.log("isDisabled = " + input);
+
+    }, [formData.operator, input]);
 
     /**
      * process the inputs
@@ -88,6 +126,8 @@ export default function Operator() {
 
         event.preventDefault();
         setSubmitResponseFail(false);
+        setInput(false);
+
         const formDataValidated = forms.dirtyAndValidateAll(formData);
 
         if (forms.hasAnyInvalid(formDataValidated)) {
@@ -97,6 +137,19 @@ export default function Operator() {
         }
 
         setFormData(formDataValidated);
+
+        // console.log(formData.operator);
+        
+        // if (formData.operator=="square_root") {
+        //     console.log("square_root - true");
+        //     setInput(true);
+        //     console.log(input);
+        // } 
+        
+        // console.log("isDisabled = " + input);
+
+        
+        
 
         /**
          * deal with the operator chosen, numeric or string
@@ -301,12 +354,12 @@ export default function Operator() {
                                 id="operator"
                             >
                                 <option label='Pick an operator...'></option>
-                                <option value="addition">Addition(&#x2b;)&nbsp;...&nbsp;${operatorCost[0][1]}</option>
-                                <option value="subtraction">Subtraction(-)&nbsp;...&nbsp;${operatorCost[1][1]}</option>
-                                <option value="multiplication">Multiplication(&times;)&nbsp;...&nbsp;${operatorCost[3][1]}</option>
-                                <option value="division">Division(&divide;)&nbsp;...&nbsp;${operatorCost[2][1]}</option>
-                                <option value="square_root">Square Root(&radic;)&nbsp;...&nbsp;${operatorCost[4][1]}</option>
-                                <option value="random_string">Random String(&xi;)...&nbsp;${operatorCost[5][1]}</option>
+
+                                {operationsOptions.map((operator) => (
+                                    <option key={operator.label} value={operator.value}>{operator.label}</option>
+                                ))}
+
+
                             </select>
                             <label className="label-input" htmlFor="operandOne">Operand One</label>
                             {
@@ -315,12 +368,13 @@ export default function Operator() {
                                     value={formData.operandOne}
                                     className="calc-form-operation"
                                     type="number"
+                                    name="operandOne"
+                                    id="operandOne"
+                                    required = {false}
+                                    placeholder="Enter an operand..."
                                     min="-999999999999999"
                                     max="999999999999999"
                                     step="0.000001"
-                                    name="operandOne"
-                                    id="operandOne"
-                                    placeholder="Enter an operand..."
 
                                 />
                             }
@@ -337,7 +391,8 @@ export default function Operator() {
                                     min="-999999999999999"
                                     max="999999999999999"
                                     step="0.000001"
-                                />
+                                    disabled = {!input}
+                                /> 
                             }
                         </div>
 

@@ -85,7 +85,30 @@ These web pages were coded using ReactJS exploring hooks such as useState, useLo
 
 [![My Skills](https://skillicons.dev/icons?i=react,vite,yarn,typescript,html,css,javascript,git,github,vscode,redhat,aws)](https://skillicons.dev)
 
+In order to build the app do the following:
+- identify your ip address and tweak the src/utils/system.ts file 
+  <br />
+  export const BASE_URL = import.meta.env.VITE_BACKEND_URL ?? "http://<IP_ADDRESS>:8095/api/v1";
+ <br />
 
+  If running both UI, DB, and API in the same container, check the CORS configuration at:
+  <br />
+https://github.com/rnhc1000/calculatorWeb/src/main/java/br/dev/ferreiras/calculatorweb/config/CorsSecurityConfiguration.java
+
+<br />
+
+Tweak it as per your environment and see the instructions available at 
+https://github.com/rnhc1000/calculatorWeb/tree/main/src/main/resources/dockerBuild.sh
+
+After you have everything in place:
+
+yarn dev --host <IP_ADDRESS> --port 7500
+
+adn the UI will be available at:
+http://<IP_ADRESS>:7500 
+
+Just in case you want to see how the UI works:
+https://youtu.be/CUdN-P-14So
 
  ## _How I did it_
 ```jsx

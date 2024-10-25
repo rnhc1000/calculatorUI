@@ -1,4 +1,5 @@
 export interface IRow {
+    [x: string]: string | undefined;
 
     recordId: number;
     createdAt: string;
