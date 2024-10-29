@@ -1,5 +1,5 @@
 import './styles.css';
-import React, { useContext, useEffect, useState, CSSProperties } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as forms from '../../utils/forms';
 import { Fade } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
@@ -13,8 +13,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
 import * as walletRepository from '../../localstorage/wallet-repository';
 import { WalletDTO } from '../../models/wallet';
-import ClipLoader from "react-spinners/ClipLoader";
-import { LineWave } from "react-loader-spinner";
+
 
 export default function Operator() {
     /**
@@ -35,12 +34,6 @@ export default function Operator() {
     spinners.forEach((spinners) => {
         return spinnersList.push(String(<div className={spinners}></div>));
     })
-
-    const override: CSSProperties = {
-        display: "block",
-        margin: "0 auto",
-        borderColor: "red",
-      };
 
     const navigate = useNavigate();
     /**
@@ -69,7 +62,6 @@ export default function Operator() {
     const [balanceData] = useState<WalletDTO>(initialState);
     const { setContextWalletBalance } = useContext(ContextWalletBalance);
     const [loading, setLoading] = useState(false);
-    const [color, setColor] = useState("#ffffff")
     const [input, setInput] = useState(false);
 
 
@@ -407,10 +399,10 @@ export default function Operator() {
                        
                                 <div className="spinner">
 
-                                    <div className="loader"></div>
-                                    <div className="loader"></div>
-                                    <div className="loader"></div>
-                                    <div className="loader"></div>
+                                    <div className="ferreiras bl"></div>
+                                    <div className="ferreiras tr" ></div>
+                                    <div className="ferreiras br"></div>
+                                    <div className="ferreiras tl"></div>
 
                                 </div>
                             
