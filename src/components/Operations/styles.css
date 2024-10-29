@@ -85,7 +85,7 @@ input::-webkit-inner-spin-button {
   transform: translate(-50%, -50%);
 }
 
- .loader {
+.loader {
   border: 16px solid blue;
   margin: 0;
   width: 50%;
@@ -99,37 +99,43 @@ input::-webkit-inner-spin-button {
   animation-delay: -1.5s;
   background-color: #f70202;
 }
+
 .loader:nth-child(2) {
   animation-delay: -1s;
   background: #0805ee;
 }
+
 .loader:nth-child(3) {
   animation-delay: -0.5s;
   background: #02f869;
 }
+
 .loader:nth-child(4) {
+  animation-delay: 0s;
   background: #f79502;
 }
 
-@keyframes rotate {
+@keyframes spinner {
+
   0%,
   100% {
     transform: translate(0);
     transform: scale(2)
   }
+
   25% {
     transform: translate(150%);
     transform: scale(2)
   }
+
   50% {
     transform: translate(150%, 150%);
     transform: scale(2)
-
   }
+
   75% {
     transform: translate(0, 150%);
     transform: scale(2)
-
   }
 }
 

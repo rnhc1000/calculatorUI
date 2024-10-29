@@ -3,6 +3,7 @@ import './styles.css';
 import { Fade } from 'react-awesome-reveal';
 import {Dots} from 'react-activity';
 import "react-activity/dist/library.css";
+import React from 'react';
 
 
 type Props = {

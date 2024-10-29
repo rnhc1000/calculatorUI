@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { WalletDTO } from '../../models/wallet';
 import * as walletRepository from '../../localstorage/wallet-repository';
+import React from 'react';
 
 
 export default function Login() {

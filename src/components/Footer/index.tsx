@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
 import CountUp from 'react-countup';
-import Visitors from '../Visitors';
+import React from 'react';
 
 export default function Footer() {
 
