@@ -1,7 +1,6 @@
 export interface IRow {
-    [x: string]: string | undefined;
-
-    recordId: number;
+    [x: string]: string;
+    recordId: string;
     createdAt: string;
     operandOne: string;
     operandTwo: string;
@@ -9,5 +8,4 @@ export interface IRow {
     result: string;
     cost: string;
     username: string;
-    
   }

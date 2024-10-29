@@ -1,5 +1,5 @@
 import './styles.css';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, CSSProperties } from 'react';
 import * as forms from '../../utils/forms';
 import { Fade } from 'react-awesome-reveal';
 import * as operationsService from '../../services/operation-services';
@@ -13,6 +13,8 @@ import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
 import * as walletRepository from '../../localstorage/wallet-repository';
 import { WalletDTO } from '../../models/wallet';
+import ClipLoader from "react-spinners/ClipLoader";
+import { LineWave } from "react-loader-spinner";
 
 export default function Operator() {
     /**
@@ -34,6 +36,11 @@ export default function Operator() {
         return spinnersList.push(String(<div className={spinners}></div>));
     })
 
+    const override: CSSProperties = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "red",
+      };
 
     const navigate = useNavigate();
     /**
@@ -62,6 +69,7 @@ export default function Operator() {
     const [balanceData] = useState<WalletDTO>(initialState);
     const { setContextWalletBalance } = useContext(ContextWalletBalance);
     const [loading, setLoading] = useState(false);
+    const [color, setColor] = useState("#ffffff")
     const [input, setInput] = useState(false);
 
 
@@ -137,19 +145,6 @@ export default function Operator() {
         }
 
         setFormData(formDataValidated);
-
-        // console.log(formData.operator);
-        
-        // if (formData.operator=="square_root") {
-        //     console.log("square_root - true");
-        //     setInput(true);
-        //     console.log(input);
-        // } 
-        
-        // console.log("isDisabled = " + input);
-
-        
-        
 
         /**
          * deal with the operator chosen, numeric or string
@@ -331,7 +326,6 @@ export default function Operator() {
             })
         }
 
-
     }
 
     return (
@@ -342,7 +336,7 @@ export default function Operator() {
                     <p>Welcome! {formData.username}</p>
                 </div>
                 <div className="calc-login-form-container">
-                    <form className="calc-form" onSubmit={handleSubmit}>
+                    <form className="calc-form" >
                         <div className="calc-form-control-container">
                             <label className="label-input" htmlFor="operator">Operator</label>
                             <select
@@ -403,9 +397,26 @@ export default function Operator() {
                             </div>
                         }
 
-                        <button type="submit" className="underlineHover calc-btn calc-login-text calc-btn-primary ">
+                        <button type="submit" 
+                        className="underlineHover calc-btn calc-login-text calc-btn-primary "
+                        onClick={handleSubmit}>
                             Process it!
-                            {loading && (
+                            {
+                                loading &&
+                                
+                       
+                                <div className="spinner">
+
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+                                    <div className="loader"></div>
+
+                                </div>
+                            
+                                
+                            }
+                            {/* {loading && (
 
                                 <div className="spinner">
 
@@ -415,7 +426,7 @@ export default function Operator() {
                                     <div className="loader"></div>
 
                                 </div>
-                            )}
+                            )} */}
                         </button>
                     </form>
                 </div>

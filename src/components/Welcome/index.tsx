@@ -1,6 +1,7 @@
 import './styles.css';
 import { Link } from 'react-router-dom';
 import homeLogo from '../../assets/svg/undraw_cloud_docs_re_xjht.svg'
+import React from 'react';
 export default function Welcome() {
 
     return (

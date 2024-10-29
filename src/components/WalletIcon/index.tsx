@@ -1,6 +1,6 @@
 import './styles.css';
 import walletIcon from '../../assets/svg/wallet.svg';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { ContextWalletBalance } from '../../utils/context-wallet';
 
 import * as walletService from '../../services/wallet-services';

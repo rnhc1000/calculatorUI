@@ -3,6 +3,7 @@ import './styles.css';
 import logo from '../../assets/svg/undraw_cloud_docs_re_xjht.svg'
 import { Link, useLocation } from 'react-router-dom';
 import WalletIcon from '../WalletIcon';
+import React from 'react';
 
 
 export default function HeaderUser() {

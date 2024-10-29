@@ -1,3 +1,4 @@
+import React from "react";
 import DataTable , { TableColumn, createTheme } from "react-data-table-component";
 
 type DataRow = {
