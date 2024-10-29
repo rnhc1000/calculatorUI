@@ -138,6 +138,7 @@ export default function GridData() {
 
     const removeSelected = useCallback(() => {
         const selectedData = gridApiRef.current!.api.getSelectedRows();
+        console.log(selectedData[0].recordId);
         gridApiRef.current!.api.applyTransaction({
             remove: selectedData,
         })!;

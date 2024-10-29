@@ -76,13 +76,83 @@ input::-webkit-inner-spin-button {
 }
 
 .spinner {
-  width: 100px;
-  height: 100px;
   margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);  
+}
+
+.ferreiras {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  animation: ferreiras 2.5s ease-out 0s infinite;  
+}
+
+  
+.tl, .tr, .br, .bl {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+}
+.tl, .tr {
+  top: 0; 
+}
+.tr, .br {
+  left: 2rem; 
+}
+.tl, .br {
+  animation: tlbr 2.5s ease-out 0s infinite;
+}
+.br, .bl {
+  top: 2rem; 
+}
+.tl, .bl {
+  left: 0; 
+}
+.tr, .bl {
+  animation: trbl 2.5s ease-out 0s infinite;
+}
+.tl {
+  background: red;
+  transform-origin: bottom right;
+  border-radius: 50%
+}
+.tr {
+  background: green; 
+  transform-origin: bottom left;
+  border-radius: 50%
+
+}
+.br {
+  background: dodgerblue; 
+  transform-origin: top left;
+  border-radius: 50%
+
+}
+.bl {
+  background: gold; 
+  transform-origin: top right;
+  border-radius: 50%
+
+}
+
+@keyframes tlbr {
+  0% {transform: rotate(0);}
+  20% {transform: rotate(90deg);}
+  40% {transform: rotate(90deg);}
+  60% {transform: rotate(0);}
+}
+@keyframes trbl {
+  20% {transform: rotate(0);}
+  40% {transform: rotate(90deg);}
+  60% {transform: rotate(90deg);}
+  80% {transform: rotate(0);}
+}
+@keyframes ferreiras {
+  80% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
 }
 
 .loader {
@@ -154,4 +224,6 @@ input::-webkit-inner-spin-button {
 
   }
 
+
+  
 }
