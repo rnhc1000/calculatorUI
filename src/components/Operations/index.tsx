@@ -65,12 +65,12 @@ export default function Operator() {
     const [input, setInput] = useState(false);
 
 
-    const add = "Addition(+) -> $"  + operatorCost[0][1];
-    const sub = "Subtraction (-) -> $" + operatorCost[1][1];
-    const mul = "Multiplication(x) -> $" + operatorCost[3][1];
-    const div = "Division(/) -> $" + operatorCost[2][1];
-    const sqr = "Square Root(v) -> $" + operatorCost[4][1];
-    const rnd = "Random String(s) -> $" + operatorCost[5][1];
+    const add = "Addition {+} -> $"  + operatorCost[0][1];
+    const sub = "Subtraction {-} -> $" + operatorCost[1][1];
+    const mul = "Multiplication {x} -> $" + operatorCost[3][1];
+    const div = "Division {/} -> $" + operatorCost[2][1];
+    const sqr = "Square Root {v} -> $" + operatorCost[4][1];
+    const rnd = "Random String {s} -> $" + operatorCost[5][1];
 
     const operationsOptions = [
         { label: add, value: "addition" },
@@ -100,17 +100,13 @@ export default function Operator() {
 
     useEffect(() => {
 
-        console.log(formData.operator);
         
         if (formData.operator=="square_root") {
-            console.log("square_root - true");
             setInput(false);
-            console.log(input);
         } else {
             setInput(true);
         }
         
-        console.log("isDisabled = " + input);
 
     }, [formData.operator, input]);
 
@@ -167,7 +163,6 @@ export default function Operator() {
                     })
 
                     .catch((error) => {
-                        console.log(error);
 
                         if (error.response.data.message == "Not Authorized") {
 

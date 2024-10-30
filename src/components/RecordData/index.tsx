@@ -12,6 +12,7 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { IRow } from '../../models/rows';
 import * as recordsService from '../../services/records-services';
+import * as deleteRecords from '../../services/delete-services';
 import { Button, FlexboxGrid, Text } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import AddOutlineIcon from '@rsuite/icons/AddOutline';
@@ -136,9 +137,11 @@ export default function GridData() {
         return params.data.recordId;
     }, []);
 
+   
     const removeSelected = useCallback(() => {
         const selectedData = gridApiRef.current!.api.getSelectedRows();
-        console.log(selectedData[0].recordId);
+        const record: number = selectedData[0].recordId;
+        deleteRecords.deleteRecordsById(record);
         gridApiRef.current!.api.applyTransaction({
             remove: selectedData,
         })!;
