@@ -45,8 +45,12 @@
   }
 
   header nav#navbar .nav-brand img:hover {
-
     width: 6rem;
+  }
+  header nav#navbar .nav-list li:hover {
+
+    font-size: 1.25rem;
+    transition: 1s;
   }
   @media (max-width: 640px) {
 

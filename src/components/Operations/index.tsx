@@ -40,7 +40,7 @@ export default function Operator() {
      * pre load form data
      */
 
-    const initialFormData = { operator: "", operandOne: "", operandTwo: "", username: "" };
+    const initialFormData = { operator: "addition", operandOne: "", operandTwo: "", username: "" };
     const initialCost = [
         ["ADDITION", 0], ["SUBTRACTION", 0], ["DIVISION", 0],
         ["MULTIPLICATION", 0], ["SQUARE_ROOT", 0], ["RANDOM_STRING", 0]
@@ -50,22 +50,13 @@ export default function Operator() {
 
     const [submitResponseFail, setSubmitResponseFail] = useState(false);
 
-    /**
-     * handle form input
-     */
-    const handleChange = (event: { target: { name: string; value: string; }; }) => {
-        const { name, value } = event.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
-
     const initialState = { username: "", balance: "0.0" };
     const [balanceData] = useState<WalletDTO>(initialState);
     const { setContextWalletBalance } = useContext(ContextWalletBalance);
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState(false);
 
-
-    const add = "Addition {+} -> $"  + operatorCost[0][1];
+    const add = "Addition {+} -> $" + operatorCost[0][1];
     const sub = "Subtraction {-} -> $" + operatorCost[1][1];
     const mul = "Multiplication {x} -> $" + operatorCost[3][1];
     const div = "Division {/} -> $" + operatorCost[2][1];
@@ -77,8 +68,8 @@ export default function Operator() {
         { label: sub, value: "subtraction" },
         { label: mul, value: "multiplication" },
         { label: div, value: "division" },
-        { label: sqr, value:"square_root" },
-        { label: rnd, value: "random_string"}
+        { label: sqr, value: "square_root" },
+        { label: rnd, value: "random_string" }
     ];
 
 
@@ -100,13 +91,11 @@ export default function Operator() {
 
     useEffect(() => {
 
-        
-        if (formData.operator=="square_root") {
+        if (formData.operator == "square_root") {
             setInput(false);
         } else {
             setInput(true);
         }
-        
 
     }, [formData.operator, input]);
 
@@ -118,11 +107,29 @@ export default function Operator() {
         setResultInfoData({ ...resultInfoData, visible: false })
     }
 
+    /**
+ * handle form input
+ */
+    // const handleChange = (event: { target: { name: string; value: string; }; }) => {
+    //     const { name, value } = event.target;
+    //     setFormData((prev) => ({ ...prev, [name]: value }));
+        
+    // };
+
+    // const [inputs, setInputs] = useState({});
+
+    const handleChange = (event: { target: { name: string; value: string; }; }) => {
+      const name = event.target.name;
+      const value = event.target.value;
+      setFormData(values => ({...values, [name]: value}))
+    }
+
     const handleSubmit = (event: { preventDefault: () => void; }) => {
 
         event.preventDefault();
         setSubmitResponseFail(false);
         setInput(false);
+        
 
         const formDataValidated = forms.dirtyAndValidateAll(formData);
 
@@ -180,7 +187,6 @@ export default function Operator() {
 
                             }).then(() => {
                                 setSubmitResponseFail(true);
-                                setSubmitResponseFail(true);
                                 setLoading(false);
                                 navigate("/home");
                             })
@@ -198,7 +204,6 @@ export default function Operator() {
                                 footer: '<b>Do maths with valid operands!</b>'
                             }).then(() => {
                                 setSubmitResponseFail(true);
-                                setSubmitResponseFail(true);
                                 setLoading(false);
                                 navigate("/operations");
                             })
@@ -214,7 +219,6 @@ export default function Operator() {
                                 confirmButtonText: `OK!`,
                                 footer: '<b>Ask admin to credit your wallet!</b>'
                             }).then(() => {
-                                setSubmitResponseFail(true);
                                 setSubmitResponseFail(true);
                                 setLoading(false);
                                 navigate("/operations");
@@ -247,8 +251,8 @@ export default function Operator() {
                         walletRepository.save({ ...balanceData });
                         setResultInfoData({ result: check, visible: true });
                         setTimeout(() => {
-                                setContextWalletBalance(walletService.getWallet().balance);
-                            }, 6000);                      
+                            setContextWalletBalance(walletService.getWallet().balance);
+                        }, 6000);
 
                         setLoading(false);
 
@@ -281,7 +285,6 @@ export default function Operator() {
                                 confirmButtonText: `OK!`,
                                 footer: '<b>Ask admin to credit your wallet!</b>'
                             }).then(() => {
-                                setSubmitResponseFail(true);
                                 setSubmitResponseFail(true);
                                 setLoading(false);
                                 navigate("/operations");
@@ -323,26 +326,25 @@ export default function Operator() {
                     <p>Welcome! {formData.username}</p>
                 </div>
                 <div className="calc-login-form-container">
-                    <form className="calc-form" >
+                    <form className="calc-form" noValidate>
                         <div className="calc-form-control-container">
-                            <label className="label-input" htmlFor="operator">Operator</label>
+                            <label className="label-input" htmlFor="operator">Pick an Operator</label>
+                            
                             <select
                                 className="calc-form-operation"
                                 onChange={handleChange}
                                 value={formData.operator}
-                                required
                                 name="operator"
                                 id="operator"
+                                required
                             >
-                                <option label='Pick an operator...'></option>
-
+                                
                                 {operationsOptions.map((operator) => (
                                     <option key={operator.label} value={operator.value}>{operator.label}</option>
                                 ))}
 
-
                             </select>
-                            <label className="label-input" htmlFor="operandOne">Operand One</label>
+                            
                             {
                                 <input
                                     onChange={handleChange}
@@ -351,29 +353,28 @@ export default function Operator() {
                                     type="number"
                                     name="operandOne"
                                     id="operandOne"
-                                    required = {false}
-                                    placeholder="Enter an operand..."
+                                    placeholder="Operand One..."
                                     min="-999999999999999"
-                                    max="999999999999999"
-                                    step="0.000001"
-
+                                    max="+999999999999999"
+                                    step="0.000001"                                  
                                 />
                             }
-                            <label className="label-input" htmlFor="operandTwo">Operand Two</label>
+                            
                             {
-                                <input
+                               
+                                <input 
                                     onChange={handleChange}
                                     value={formData.operandTwo}
                                     className="calc-form-operation"
                                     type="number"
                                     name="operandTwo"
                                     id="operandTwo"
-                                    placeholder="Enter an operand..."
+                                    placeholder="Operand Two..."
                                     min="-999999999999999"
-                                    max="999999999999999"
+                                    max="+999999999999999"
                                     step="0.000001"
-                                    disabled = {!input}
-                                /> 
+                                    disabled={!input}
+                                />
                             }
                         </div>
 
@@ -384,14 +385,14 @@ export default function Operator() {
                             </div>
                         }
 
-                        <button type="submit" 
-                        className="underlineHover calc-btn calc-login-text calc-btn-primary "
-                        onClick={handleSubmit}>
+                        <button type="submit"
+                            className="underlineHover calc-btn calc-login-text calc-btn-primary "
+                            onClick={handleSubmit}
+                            >
                             Process it!
                             {
                                 loading &&
-                                
-                       
+
                                 <div className="spinner">
 
                                     <div className="ferreiras bl"></div>
@@ -400,8 +401,8 @@ export default function Operator() {
                                     <div className="ferreiras tl"></div>
 
                                 </div>
-                            
-                                
+
+
                             }
                             {/* {loading && (
 

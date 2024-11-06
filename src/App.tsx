@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import Home from "./routes/Home";
-import Login from './routes/Login';
 import Operation from "./routes/Operation";
 import Records from "./routes/Records";
 import ScrollToTop from './utils/scrollTop';
@@ -12,12 +11,13 @@ import * as authService from './services/auth-services';
 import * as  walletService from './services/wallet-services';
 import { ContextToken } from "./utils/context-token";
 import { ContextWalletBalance } from "./utils/context-wallet";
+import Authenticate from "./routes/Login";
 
 export default function App() {
 
 
   const MemoizedHome = React.memo(Home);
-  const MemoizedLogin = React.memo(Login);
+  const MemoizedLogin = React.memo(Authenticate);
   const MemoizedOperation = React.memo(Operation);
   const MemoizedRecords = React.memo(Records);
   
