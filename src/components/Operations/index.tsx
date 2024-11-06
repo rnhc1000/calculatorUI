@@ -360,8 +360,7 @@ export default function Operator() {
                                 />
                             }
                             
-                            {
-                               
+                            {                              
                                 <input 
                                     onChange={handleChange}
                                     value={formData.operandTwo}

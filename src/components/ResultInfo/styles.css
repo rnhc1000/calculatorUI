@@ -1,9 +1,10 @@
+
 @media (max-width: 640px) {
 
     .calc-dialog-box {
 
-        height: 20rem;
-        width: 20rem;
+        height: 16rem;
+        width: 16rem;
 
     }
 }

@@ -1,0 +1,18 @@
+
+  .calc-login-form-container {
+    width: 100%;
+    max-width: 24rem;
+    margin: 0 auto;
+  }
+  
+  .calc-login-form-buttons {
+    width: 100%;
+  }
+
+  @media (max-width: 640px) {
+
+    .calc-form-control {
+      max-width: 95%;
+    }
+  }
+
