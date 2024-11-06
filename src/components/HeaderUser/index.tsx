@@ -9,6 +9,7 @@ import React from 'react';
 export default function HeaderUser() {
 
     const location = useLocation();
+    const currentLocation = location.pathname;
 
     return (
         <header>
@@ -23,22 +24,21 @@ export default function HeaderUser() {
                     </li>
 
                     {
-                        location.pathname === "/operations" 
+                       currentLocation === "/operations" 
                         
                         &&
 
-                        <li><Link to='/records'>Records</Link></li>
+                        (<li><Link to='/records'>Records</Link></li>)
                         
                     }
 
 
                     {
-                        location.pathname === "/records" 
+                       currentLocation === "/records" 
 
                         ? 
 
-                        (<li><Link to='/operations'>Operations</Link></li>)
-                    
+                       (<li><Link to='/operations'>Operations</Link></li>)
 
                         : 
 

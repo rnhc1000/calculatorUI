@@ -2,8 +2,8 @@
     height: 4rem;
     display: flex;
 
-    background-color: rgba(245, 132, 3, 0.1);
-    box-shadow: 0 2px 3px rgba(161, 67, 12, 0.5);
+    background-color: rgba(9, 32, 240, 0.1);
+    box-shadow: 0 2px 3px rgba(46, 53, 117, 0.5);
 }
   
   header nav#navbar {
@@ -13,7 +13,6 @@
     padding: 0 1rem;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(233, 98, 88, 0.15);
     margin: 0 auto;
   }
   

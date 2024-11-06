@@ -171,6 +171,7 @@ export default function GridData() {
                     columnDefs={columnDefs}
                     defaultColDef={defaultColDef}
                     pagination={true}
+                    paginationPageSize={8}
                     rowSelection={rowSelection}
                     autoGroupColumnDef={autoGroupColumnDef}
                     groupDefaultExpanded={1}

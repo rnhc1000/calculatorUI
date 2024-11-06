@@ -18,9 +18,11 @@
 }
 
 .label-input {
-  color: white;
-  margin: 0;
+  margin-bottom: 0.01rem;
   padding: 0;
+  font-size: 1.15rem;
+  font-weight: 200;
+  color: var(--white);
 }
 
 input::-webkit-outer-spin-button,
@@ -84,58 +86,68 @@ input::-webkit-inner-spin-button {
 }
 
 .ferreiras {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  animation: ferreiras 2.5s ease-out 0s infinite;  
-}
-
+  border: 0.1rem solid blue;
+  margin: 0;
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  border-radius: 50%;
+  animation: rotate 2s ease infinite;
   
+}
+ 
 .tl, .tr, .br, .bl {
   width: 2rem;
-  height: 2rem;
+  height:2rem;
   position: absolute;
 }
+
 .tl, .tr {
   top: 0; 
 }
+
 .tr, .br {
   left: 2rem; 
 }
+
 .tl, .br {
   animation: tlbr 2.5s ease-out 0s infinite;
 }
+
 .br, .bl {
   top: 2rem; 
 }
+
 .tl, .bl {
   left: 0; 
 }
+
 .tr, .bl {
   animation: trbl 2.5s ease-out 0s infinite;
 }
+
 .tl {
   background: red;
   transform-origin: bottom right;
   border-radius: 50%
 }
+
 .tr {
   background: green; 
   transform-origin: bottom left;
   border-radius: 50%
-
 }
+
 .br {
   background: dodgerblue; 
   transform-origin: top left;
   border-radius: 50%
-
 }
+
 .bl {
   background: gold; 
   transform-origin: top right;
   border-radius: 50%
-
 }
 
 @keyframes tlbr {
@@ -144,12 +156,14 @@ input::-webkit-inner-spin-button {
   40% {transform: rotate(90deg);}
   60% {transform: rotate(0);}
 }
+
 @keyframes trbl {
   20% {transform: rotate(0);}
   40% {transform: rotate(90deg);}
   60% {transform: rotate(90deg);}
   80% {transform: rotate(0);}
 }
+
 @keyframes ferreiras {
   80% {transform: rotate(0deg);}
   100% {transform: rotate(360deg);}
