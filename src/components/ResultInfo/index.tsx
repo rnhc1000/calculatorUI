@@ -1,9 +1,11 @@
 import './styles.css';
 // import ButtonPrimary from "../ButtonPrimary";
 import { Fade } from 'react-awesome-reveal';
-import {Dots} from 'react-activity';
+// import {Dots} from 'react-activity';
 import "react-activity/dist/library.css";
 import React from 'react';
+import Timer from '../Timer';
+
 
 
 type Props = {
@@ -24,9 +26,10 @@ export default function ResultInfo({ result }: Readonly<Props>) {
                         <ButtonPrimary text="Done!" />
                     </div> */}
                     <br></br>
-
-                    <Dots color="var(--result)" size={48} speed={1} animating={true} />
-
+                    <div className="count-box">
+                        {/* <Dots color="var(--result)" size={48} speed={1} animating={true} /> */}
+                        <p><Timer /></p>
+                    </div>
                 </div>
             </div>
         </Fade>
