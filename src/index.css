@@ -30,6 +30,10 @@
 
     --calc-color-error: #f33;
     --calc-color-notification: #F00;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 

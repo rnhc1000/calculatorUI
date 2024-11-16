@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "public/indexTwo.tsx", "public/indexGrid.tsx", "public/indexOriginal.tsx", "public/indexAgGrid.tsx"]
+  "include": ["src", "public/indexTwo.tsx", "public/indexGrid.tsx", "public/indexOriginal.tsx", "public/indexAgGrid.tsx", "payload.ts"]
 }
