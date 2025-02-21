@@ -89,15 +89,6 @@ export default function Operator() {
     const accessTokenPayload = { ...authService.getAccessTokenPayload() };
     formData.username = accessTokenPayload.username ?? "nouser@found.com";
 
-    useEffect(() => {
-
-        if (formData.operator == "square_root") {
-            setInput(false);
-        } else {
-            setInput(true);
-        }
-
-    }, [formData.operator, input]);
 
     /**
      * process the inputs
@@ -123,6 +114,17 @@ export default function Operator() {
       const value = event.target.value;
       setFormData(values => ({...values, [name]: value}))
     }
+
+
+    useEffect(() => {
+
+        if (formData.operator == "square_root") {
+            setInput(false);
+        } else {
+            setInput(true);
+        }
+
+    }, [formData.operator, input]);
 
     const handleSubmit = (event: { preventDefault: () => void; }) => {
 
