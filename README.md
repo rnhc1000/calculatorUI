@@ -78,7 +78,8 @@ These web pages were coded using ReactJS exploring hooks such as useState, useLo
 - public|
 
 ## _Screenshot_
-[![](./calculatorUI.png)]()
+[![](./diagram.png)]()
+
 ## _Links_
 - Live Site URL: [https://calculatorweb.ferreiras.dev.br] 
 ## _Built with_

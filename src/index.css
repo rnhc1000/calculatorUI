@@ -34,8 +34,14 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
 }
 
+.calc-form-operation::-webkit-inner-spin-button,
+.calc-form-operation::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 * {
     margin: 0;
@@ -63,7 +69,7 @@ body {
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-image: linear-gradient(.50turn, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.95)), url('assets/webp/geometry-1044090_1280.jpg.webp');
+    background-image: linear-gradient(.25turn, rgba(37, 30, 44, 0.95), rgba(37, 30, 44, 0.95)), url('assets/webp/pexels-leeloothefirst-8962447.jpg');
     background-size: cover;
 }
 
@@ -383,6 +389,7 @@ a:hover {
     border-radius: 0.5rem;
     border: 0.15rem solid var(--white);
     background-color: #0C0C0C;
+
   }
 
   select.calc-form-operation {

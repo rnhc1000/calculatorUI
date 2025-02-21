@@ -4,7 +4,8 @@ import {
     ColDef,
     GetRowIdParams,
     RowSelectionOptions,
-    ValueFormatterParams
+    ValueFormatterParams,
+
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
@@ -13,9 +14,11 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { IRow } from '../../models/rows';
 import * as recordsService from '../../services/records-services';
 import * as deleteRecords from '../../services/delete-services';
-import { Button, FlexboxGrid, Text } from 'rsuite';
-import 'rsuite/dist/rsuite.min.css';
-import AddOutlineIcon from '@rsuite/icons/AddOutline';
+// import { Button, FlexboxGrid, Text } from 'rsuite';
+// import 'rsuite/dist/rsuite.min.css';
+// import AddOutlineIcon from '@rsuite/icons/AddOutline';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/DeleteForever';
 
 
 const dateFormatter = (params: ValueFormatterParams): string => {
@@ -37,7 +40,45 @@ const rowSelection: RowSelectionOptions = {
     enableClickSelection: true,
 };
 
+// const myTheme = themeQuartz.withPart(iconSetMaterial).withParams({
+
+//         accentColor: "#15BDE8",
+//         backgroundColor: "none",
+//         borderColor: "#ffffff00",
+//         borderRadius: 20,
+//         browserColorScheme: "dark",
+//         cellHorizontalPaddingScale: 1,
+//         chromeBackgroundColor: {
+//             ref: "backgroundColor"
+//         },
+//         columnBorder: false,
+//         fontFamily: {
+//             googleFont: "Inter"
+//         },
+//         fontSize: 16,
+//         foregroundColor: "#BBBEC9",
+//         headerBackgroundColor: "#292D5A",
+//         headerFontSize: 14,
+//         headerFontWeight: 500,
+//         headerTextColor: "#FFFFFF",
+//         headerVerticalPaddingScale: 0.9,
+//         iconSize: 20,
+//         rowBorder: false,
+//         rowVerticalPaddingScale: 1.2,
+//         sidePanelBorder: false,
+//         spacing: 8,
+//         wrapperBorder: false,
+//         wrapperBorderRadius: 0
+
+//     });
+
+// const themes = [myTheme];
+
+
 export default function GridData() {
+
+    // const [theme] = useState(themes[0]);
+
 
     const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
     const gridStyle = useMemo(() => ({ height: "75vh", width: "90wh" }), []);
@@ -149,34 +190,25 @@ export default function GridData() {
 
     return (
         <div style={containerStyle}>
-            <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column' }}></div>
-            <div
-                style={gridStyle}
-                className={
-                    "ag-theme-quartz-dark"
-                }
-            >
-                <div style={{ marginBottom: '5px', minHeight: '30px' }}>
-                    <FlexboxGrid justify="end">
-                        <Button size="xs" appearance="ghost" 
-                            startIcon={<AddOutlineIcon />} 
-                            onClick={removeSelected}>
-                            <Text weight="medium" color="orange" size="md">Delete</Text>
-                        </Button>
-                    </FlexboxGrid>
-                </div>
+            {/* <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column' }}></div> */}
+            <div style={gridStyle} className={"ag-theme-quartz-dark"}>
+                <Button  className="button-delete" onClick={removeSelected}  style={{ position: "relative", top: "5px", left: "90%" }}size="large" color="error" startIcon={<DeleteIcon />}>
+                       del 
+                </Button>
+
                 <AgGridReact
                     ref={gridApiRef}
                     rowData={rowData}
                     columnDefs={columnDefs}
                     defaultColDef={defaultColDef}
                     pagination={true}
-                    paginationPageSize={8}
+                    paginationPageSize={15}
                     rowSelection={rowSelection}
                     autoGroupColumnDef={autoGroupColumnDef}
                     groupDefaultExpanded={1}
                     getRowId={getRowId}
                     onGridReady={onGridReady}
+                    // theme={theme}
                 />
             </div>
         </div>

@@ -86,14 +86,13 @@ input::-webkit-inner-spin-button {
 }
 
 .ferreiras {
-  border: 0.1rem solid blue;
+  border: 0.1rem solid rgb(65, 65, 194);
   margin: 0;
-  width: 50%;
-  height: 50%;
+  width: 60%;
+  height: 60%;
   position: absolute;
   border-radius: 50%;
-  animation: rotate 2s ease infinite;
-  
+  animation: ferreiras 2s ease infinite;
 }
  
 .tl, .tr, .br, .bl {
